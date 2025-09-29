@@ -1,0 +1,115 @@
+/* Per-post styles for gpu-parallel-programming-intro.html */
+
+/* Scope styles to this article only */
+.post.gpu-intro {
+  line-height: 1.75;
+}
+
+/* Text justification */
+.post.gpu-intro p {
+  margin: 8px 0;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* Image and figure styling */
+.post.gpu-intro figure {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.post.gpu-intro img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.post.gpu-intro figcaption {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--text-muted, #666);
+  font-style: italic;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Code and pre blocks */
+.post.gpu-intro code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  background: color-mix(in oklab, var(--bg), black 5%);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: var(--link, #0066cc);
+}
+
+.post.gpu-intro pre {
+  overflow: auto;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: color-mix(in oklab, var(--bg), black 3%);
+  margin: 16px 0;
+}
+
+.post.gpu-intro pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: 1em;
+  color: inherit;
+}
+
+/* Highlight styles */
+.post.gpu-intro .highlight-subheading {
+  color: var(--link, #0066cc);
+  font-weight: 600;
+  font-size: 1.1em;
+}
+
+.post.gpu-intro .highlight-term {
+  background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-weight: 500;
+  color: #856404;
+}
+
+.post.gpu-intro .important-term {
+  color: var(--link, #0066cc);
+  font-weight: 600;
+}
+
+.post.gpu-intro .code-term {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  background: color-mix(in oklab, var(--bg), black 5%);
+  padding: 1px 4px;
+  border-radius: 3px;
+  color: var(--link, #0066cc);
+  font-size: 0.95em;
+}
+
+/* Example spacing tweaks */
+.post.gpu-intro section {
+  margin: 16px 0 18px;
+}
+
+/* Make tables responsive */
+.post.gpu-intro table { width: 100%; border-collapse: collapse; }
+.post.gpu-intro table th,
+.post.gpu-intro table td {
+  border: 1px solid var(--border);
+  padding: 8px 10px;
+}
+.post.gpu-intro .table-wrap { overflow-x: auto; }
+
+/* Optional: highlight callouts specific to this post */
+.post.gpu-intro .note {
+  border-left: 3px solid var(--link);
+  background: color-mix(in oklab, var(--link), transparent 92%);
+  padding: 8px 10px;
+  border-radius: 6px;
+}

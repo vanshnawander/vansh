@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GPU Parallel Programming</title>
+    <meta name="description" content="Introduction to GPU parallel programming and its applications" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/posts/gpu-parallel-programming-intro.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="../index.html">Vansh Nawander</a>
+        <nav class="nav">
+          <a class="nav-link" href="../index.html">Home</a>
+          <a class="nav-link" href="../about.html">About</a>
+          <a class="nav-link active" href="../blogs.html">Blogs</a>
+          <a class="nav-link" href="../reading.html">Reading</a>
+          <a class="nav-link" href="../contact.html">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <article class="post gpu-intro">
+        <h1>Intro to parallel and GPU programming</h1>
+        <p class="muted">Published Sep 2025 • ⏱ 20 min read</p>
+        <p>Introduction to GPU parallel programming and its applications.</p>
+
+        <section>
+          <h2>Contents</h2>
+          <ul>
+            <li>Introduction</li>
+            <li>CPU vs GPU</li>
+            <li>Parallel programming on CPUs</li>
+            <li>Parallel programming on GPUs
+
+              <ul>
+                <li>Understanding the GPU - CUDA architecture(blocks, threads, warps, SM etc.)</li>
+                <li>GPU parallel programming with CUDA</li>
+              </ul>
+            </li>
+            <li>Triton, PyTorch, Jax</li>
+            <li>Miscallenous - HIP, ROCm, OpenMP</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Introduction</h2>
+          <p>This blog is about intro to parallel programming more specifically GPU parallel programming, and how to make most from our hardware. </p>
+          <p>We don't realise it but our computers are very powerful and We barely use it to its full potential. We usually tend to write <span class="important-term">sequential code</span> and keep optimising it. If we <span class="highlight-term">prallelize</span> the program well, we can easily gain <span class="important-term">orders of magnitude</span> in performance even with a naive approach. For example an intel i7 13th gen has <span class="code-term">16 cores</span> and <span class="code-term">24 threads</span>. That means if my program is parallelizable, it can be 24 times faster. </p>
+          <p>This is just for a CPU, but GPU has even more cores and threads. An RTX 4050 6gb can launch <span class="code-term">30720 threads</span> at once. That simply means that it can run those many things at once. Though GPU cores are not as powerful as CPU cores but when collectively parallelized, it can be orders of magnitude faster. We'll see how they differ in the next section and understand its working. </p>
+        </section>
+        <section>
+          <h2><i>CPU vs GPU</i></h2>
+          <p>Before going into the details firstly lets define what is a thread. A <span class="important-term">thread</span> is a unit of execution. In simpler terms it is a sequence of instructions to be executed. The execution here means a change in state at the hardware level, this can be moving data in memory from one place to another, or running a loop, any mathematical operation etc. Notice there's moving data from one place to another, is also one of the major instruction in a program, arguably the one which takes most of the time atleast when we are doing Deep Learning, NLP etc. This is also true in many other cases in general.</p>
+       
+          <h4><i>CPU</i></h4>
+          <p>
+            The Design of a CPU is optimized for <span class="important-term">sequential execution</span>, that is it tries to complete the execution of a thread as fast as possible. For this reason the CPU cores are big, powerful and have a lot of on chip cache memory. This kind of design is also called as <span class="important-term">Latency oriented design</span>. (you want to minimize the latency)
+          </p>
+          <ul>
+            <li>Optimized for sequential processing with a few powerful cores (4-64 cores)</li>
+            <li>High clock speeds (3-5 GHz)</li>
+            <li>One register file per thread. On modern CPUs you have at most 2 register files per core, called hyperthreading.</li>
+            <li>Large L1/L2 cache per core, shared by fewer threads (maximum of 2 when hyperthreading is available).</li>
+          </ul>
+          <figure>
+            <img src="../images/gpu-parallel-programming-intro/cpu-vs-gpu.png" alt="cpu vs gpu">
+            <figcaption>CPU vs GPU, Image from <a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/#programming-model">CUDA Programming Model</a></figcaption>
+          </figure>
+          <h4><i>GPU</i></h4>
+          <p>
+            GPUs have been designed to execute many similar commands, or threads, in parallel, achieving higher <span class="important-term">throughput</span>. GPUs maximize the chip area and power budgeting to floating point operations and memory access throughput. This kind of design is <span class="important-term">throughput oriented design</span>. (you want to maximize the throughput, i.e., maximize the number of operations performed per second)
+          </p>
+          <ul>
+            <li>Designed for parallel processing with many simpler cores (hundreds/thousands)</li>
+            <li>Lower clock speeds (1-2 GHz)</li>
+            <li>Streamlined control logic</li>
+            <li>Small caches, more registers</li>
+            <li>Register files are shared among threads. The number of threads that can be run in parallel depends on the registers needed per thread.</li>
+          </ul>
+          <p>A program which cannot be <span class="highlight-term">parallizable</span> will execute on CPU much faster than on GPU. Hence GPUs might not always be the best choice for every program.</p>
+        </section>
+        <section>
+          <h2>Parallel programming on CPUs</h2>
+          <p>Since CPUs have more than one core, we can use them to parallelize our program. various libraries let us do this easily. OpenMP is one of them. in c++ we can use std::thread to parallelize our program. In python we can use multiprocessing, concurrent.futures to parallelize our program. We'll not go much into details for CPUs since our focus is on GPUs, but these are important to know.</p>
+        </section>
+        <section>
+          <h2>Parallel programming on GPUs</h2>
+          <p>Since GPUs are designed themselves for parallel programming in mind, the programming model is a bit different. we'll use CUDA, Triton, PyTorch, Jax etc. to parallelize our program. To understand the GPU programming it is important to understand the GPU architecture.</p>
+        </section>
+        <section>
+          <h2>Understanding the GPU - CUDA architecture(blocks, threads, warps,SM etc.)</h2>
+          <p>
+            There are various components in a GPU. 
+            <ol>
+              <li>HBM - High Bandwidth Memory (Global Memory)</li>
+              <li>SM - Streaming Multiprocessor</li>
+              <li>Cores</li>
+              <li>Warps</li>
+              <li>Shared Memory</li>
+              <li>Threads, Blocks and Grids</li>
+            </ol>
+            There are also caches and other components like scheduler but we'll not go into details, since we don't have explicit control over them, when we write a program.
+          </p>
+          <figure>
+            <img src="../images/gpu-parallel-programming-intro/gpu-diagram.png" alt="gpu architecture">
+            <figcaption>GPU Architecture, Image from <a href="https://jax-ml.github.io/scaling-book/gpus/">Scaling Book</a></figcaption>
+          </figure>
+          <p>
+            <strong>HBM (High Bandwidth Memory)</strong> is the global memory of the GPU, accessible to all cores. All data must be loaded into HBM first before the GPU can use it. This is the memory with the highest capacity.
+          </p>
+          <p>
+            The <strong>Streaming Multiprocessor (SM)</strong> is the processing unit of the GPU that performs actual computation. It contains multiple cores grouped into <strong>warps</strong> - groups of threads executed together. Typically, a warp has 32 threads (though this can vary by GPU architecture).
+            These SMs have their own <strong>shared memory</strong> - a fast, on-chip memory resource shared by all threads within a single thread block, but not visible to other thread blocks.
+          </p>
+          <p>
+            <strong>Registers</strong>—These are private to each thread, which means that registers assigned to a thread are not visible to other threads. The compiler makes decisions about register utilization.
+            <br>
+            <strong>L1/Shared memory (SMEM)</strong>—Every SM has a fast, on-chip scratchpad memory that can be used as L1 cache and shared memory. All threads in a CUDA block can share shared memory, and all CUDA blocks running on a given SM can share the physical memory resource provided by the SM..
+            <br>
+            <strong>Read-only memory</strong>—Each SM has an instruction cache, constant memory,  texture memory and RO cache, which is read-only to kernel code.
+            <br>
+            <strong>L2 cache</strong>—The L2 cache is shared across all SMs, so every thread in every CUDA block can access this memory. The NVIDIA A100 GPU has increased the L2 cache size to 40 MB as compared to 6 MB in V100 GPUs.
+            The H100 has 50 MB L2 cache.
+          </p>
+          <p>
+            More about memory here: <a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/#device-memory-accesses">Device Memory Accesses</a>
+          </p>
+          <p>
+            Now comes the most important part: <strong>threads and blocks</strong>. Understanding them is crucial for GPU programming.
+          </p>
+          <p>
+            Threads and blocks are the basic units of parallelism in CUDA. A <strong>block</strong> is a group of threads executed together, and a <strong>grid</strong> is a group of blocks executed together. The hardware is designed this way, making it essential to understand both memory hierarchy and thread organization to write optimized GPU code.
+          </p>
+          <p>
+            We'll explore this further with coding examples in the next section, but for now, remember: a block is simply a group of threads, and a grid is a group of blocks.
+          </p>
+         
+        </section>
+        <section>
+          <h2>GPU parallel programming with CUDA</h2>
+          <p>For programming GPUs we use a programming model called CUDA. CUDA is a parallel computing platform and programming model by NVIDIA that allows developers to use NVIDIA Graphics Processing Units (GPUs).  It provides an API (Application Programming Interface) and tools, such as the CUDA Toolkit, that enable us to write software that leverages the thousands of parallel cores in a GPU.</p>
+          <p>CUDA is once such model, there are other models like HIP, ROCm, OpenMP etc. HIP is for cross platform programming, OpenMP is for CPUs.
+            more here:<a href="https://co-design.pop-coe.eu/models/index.html">List of Programming Models
+            </a>
+          </p>
+          <p>A program in CUDA is always a heterogeneous program since it always has to pass through cpu first, becuase that's where the code is written. The execution path must originate on and be controlled by the CPU for a CUDA program. 
+          The CPU is like the manager of the GPU, it controls the GPU and tells it what to do. 
+          </p>
+          <figure>
+            <img src="../images/gpu-parallel-programming-intro/heterogeneous-programming.png" alt="heterogeneous programming">
+            <figcaption>Heterogeneous programming, Image from <a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/#programming-model">CUDA Programming Model</a></figcaption>
+          </figure>
+          <p>
+            The CPU is referred as Host and the GPU is referred as Device(sometimes Kernel).The code which executes in the CPU is called Host code and the code which executes in the GPU is called kernel code.         
+          </p>
+          <p>
+            A typical <span class="highlight-subheading">CUDA program structure</span> has the following steps, lets go into each of these one by one:
+            <ol>
+              <li><span class="important-term">Initialize the host code</span></li>
+              <p>
+                This is basically your main function, which is the entry point of any c/c++ code. your instruction stream starts from here where you define your variables and do your initializations. 
+                
+              </p>
+              <li><span class="important-term">Allocate memory on the device (cudaMalloc)</span></li>
+              <p>
+                Now you have your variables and data on the host i.e, CPU. But if you want to use GPU for parallel processing, you need to allocate memory on the device i.e, GPU. The allocation is similar to malloc in c/c++, where you define the size of the memory you want to allocate.
+                In CUDA, we use cudaMalloc for this purpose. It takes the following parameters:
+                <ul>
+                  <li>Pointer to the memory location on the device</li>
+                  <li>Size of the memory to be allocated</li>
+                </ul>
+                example: 
+                <pre><code>float *d_data;
+size_t size = 1024 * sizeof(float);
+cudaMalloc((void**)&amp;d_data, size);</code></pre>
+              </p>
+              <li><span class="important-term">Copy data to the device (cudaMemcpy)</span></li>
+              <p>
+                Now you have your memory allocated on the device, but you need to copy your data to the device. This is where cudaMemcpy comes in. It takes the following parameters:
+                <ul>
+                  <li>Pointer to the memory location on the host(source)</li>
+                  <li>Pointer to the memory location on the device(destination)</li>
+                  <li>Size of the memory to be copied(bytes)</li>
+                  <li>Direction of the copy (Host to Device or Device to Host)</li>
+                  directions are inbuilt constants in cuda
+                  <ul>
+                    <li>cudaMemcpyHostToDevice</li>
+                    <li>cudaMemcpyDeviceToHost</li>
+                  </ul>
+                </ul>
+                example: 
+                <pre><code>float *h_data = (float*)malloc(size);
+cudaMemcpy(d_data, h_data, size, cudaMemcpyHostToDevice);</code></pre>
+              </p>
+              <li><span class="important-term">Launch the kernel</span></li>
+              <p>
+                Now we have the data on the device, we can launch the kernel. The kernel is the function that will be executed on the device. The kernel is defined in the device code. This fucntion is a special function and has __global__ keyword in front of it. The __global__ keyword indicates that the function being declared is a CUDA C kernel function. The kernel function is the entry point for the GPU code. 
+
+                The kernel function is defined as follows:
+                <pre><code>__global__ void kernel_name() {
+  // kernel code
+}</code></pre>
+                you launch the kernel as follows:
+                <pre><code>kernel_name<<< gridSize, blockSize >>>(args);</code></pre>
+                when the host code calls a kernel, it sets the grid and thread block dimensions via executionconfiguration parameters. The configuration parameters are given between the
+                “ <<<” and “>>>” before the traditional C function arguments. The first configuration parameter gives the number of blocks in the grid. The second specifies the number of threads in each block. 
+
+                We'll dive deeper into how kernel works and all of that in next section.
+                
+              </p>
+              <li><span class="important-term">Copy data back to the host (cudaMemcpy)</span></li>
+              <p>
+                Once the kernel is executed on GPU, you have the results on device. Again we use cudaMemcpy to copy the results back to the host.
+                <pre><code>cudaMemcpy(h_data, d_data, size, cudaMemcpyDeviceToHost);</code></pre>
+
+              </p>
+              <li><span class="important-term">Free the device memory (cudaFree)</span></li>
+              <p>
+                Once the kernel is executed and the results are copied back to the host, we can free the device memory. This is similar to free in c/c++.
+                <pre><code>cudaFree(d_data);</code></pre>
+              </p>
+            </ol>
+            <figure>
+              <img src="../images/gpu-parallel-programming-intro/host-device-flow.svg" alt="host device flow">
+              <figcaption>Host Device Flow. Image from <a href="https://rocm.docs.amd.com/projects/HIP/en/latest/understand/programming_model.html">HIP Programming Model</a></figcaption>
+            </figure>
+          </p>
+          <p>
+            Since CUDA C has special syntax and keywords. The code needs to be compiled by a compiler that recognizes and understands these extensions, such as NVCC (NVIDIA C compiler) or HIPCC (HIP C compiler). The device code, which is marked with CUDA keywords that designate CUDA kernels and their associated helper functions and data structures, is
+            compiled by NVCC into virtual binary files called PTX files. These PTX files are
+            further compiled by a runtime component of NVCC into the real object files and executed on a CUDA-capable GPU device.
+            
+            <figure>
+              <img src="../images/gpu-parallel-programming-intro/nvcc-compilation.png" alt="nvcc compilation">
+              <figcaption>NVCC Compilation. Image from <a href="https://share.google/No0Lb5QGegPbW6BXF">Textbook by David B. Kirk, Wen-mei W. Hwu</a></figcaption>
+            </figure>
+          </p>
+          <h2><span class="highlight-subheading">Diving into the kernel (Threads, Blocks and Grids)</span></h2>
+          <p>
+            This is one of the most important parts of GPU programming. Let's start with the basics and then dive deeper into the details.
+          </p>
+          <p>
+            A group of threads is called a <strong>CUDA block</strong>. CUDA blocks are grouped into a <strong>grid</strong>. A kernel is executed as a grid of blocks of threads.
+          </p>
+
+          <p>
+            Here's sample code for a kernel that adds two vectors:
+          </p>
+          <pre><code>__global__
+void vectorAddKernel(float *a, float *b, float *c, int n) {
+    int i = threadIdx.x + blockDim.x * blockIdx.x;
+    if (i < n) {
+        c[i] = a[i] + b[i];
+    }
+}</code></pre>
+
+          <p>
+            This looks confusing at first, but let's break it down. All threads in a GPU execute the same kernel function, but we don't want them all working on the same data. That's why we use <code>threadIdx</code>, <code>blockDim</code>, <code>blockIdx</code>, and <code>gridDim</code> to give each thread a unique identifier to access different data elements.
+          </p>
+
+          <ul>
+            <li><code>threadIdx</code> - The thread ID within a block</li>
+            <li><code>blockDim</code> - The block size (number of threads per block)</li>
+            <li><code>blockIdx</code> - The block ID within the grid</li>
+            <li><code>gridDim</code> - The grid size (number of blocks)</li>
+          </ul>
+          <img src="../images/gpu-parallel-programming-intro/kernel-execution-on-gpu.png" alt="kernel execution on gpu">
+          <figcaption>Kernel Execution on GPU. Image from <a href="https://developer.nvidia.com/blog/cuda-refresher-cuda-programming-model/">CUDA Refresher: CUDA Programming Model</a></figcaption>
+          <p>
+            The number of threads in a block is defined by us (usually a multiple of 32 since the warp size is 32). The number of blocks in a grid is also defined by us. We can organize threads in 1D, 2D, or 3D blocks, but the total number of threads per block shouldn't exceed the maximum limit (usually 1024, depending on your GPU).
+          </p>
+
+          <p>
+            Let's understand this with an example. Suppose I have 2 vectors of size 100,000 and I want to add them. If I define my block size as 512, then my grid size will be:
+          </p>
+          <pre><code>100000 / 512 = 195.3125</code></pre>
+          <p>
+            Since we can't have a fraction of a block, we round up to 196 blocks. This gives us 196 × 512 = 100,352 total threads. We have 352 extra threads that will still execute the kernel code, but we use the condition <code>if (i < n)</code> to ensure only valid indices perform the actual computation.
+          </p>
+
+          <p>
+            For 100,352 threads, we need a unique identifier for each thread. We get this using the formula:
+          </p>
+          <pre><code>i = blockIdx.x * blockDim.x + threadIdx.x</code></pre>
+          <p>
+            For 2D grids and blocks:
+          </p>
+          <pre><code>i = blockIdx.x * blockDim.x + threadIdx.x;
+j = blockIdx.y * blockDim.y + threadIdx.y;</code></pre>
+          <p>
+            For 3D grids and blocks:
+          </p>
+          <pre><code>i = blockIdx.x * blockDim.x + threadIdx.x;
+j = blockIdx.y * blockDim.y + threadIdx.y;
+k = blockIdx.z * blockDim.z + threadIdx.z;</code></pre>
+
+          <p>
+            Each thread uses this <code>i</code> to access data from arrays. Each thread has its own execution context and runs independently of other threads.
+          </p>
+
+          <p>
+            All threads in a block run concurrently (in parallel), and GPUs excel at concurrent execution. When a thread waits for memory access (which takes hundreds of clock cycles), the GPU scheduler switches to another warp until the data is available. Sometimes threads in the same warp may follow different execution paths due to if-else statements - this is called <strong>warp divergence</strong> and reduces GPU performance.
+          </p>
+        </section>
+        <section>
+          <h2>Triton, PyTorch, Jax</h2>
+          <p>These are high-level frameworks that make GPU programming more accessible and user-friendly. They abstract away much of the low-level CUDA complexity while still providing excellent performance.</p>
+
+          <ul>
+            <li>
+              <strong>Triton</strong>
+              <p>Triton is a language and compiler for parallel programming. It aims to provide a Python-based programming environment for productively writing custom DNN compute kernels capable of running at maximal throughput on modern GPU hardware. Eventually triton's code is converted to PTX through intermediate representation (IR).</p>
+              <p>Triton is a pretty good start for learning GPU programming.</p>
+            </li>
+            <li>
+              <strong>PyTorch</strong>
+              <p>PyTorch also gives us a utility to write custom kernels using CUDA.</p>
+              <p>PyTorch in fact has so many CUDA kernels implemented in C++ and CUDA. It's a very rich ecosystem which can be leveraged to optimize a lot of operations.</p>
+            </li>
+            <li>
+              <strong>Jax</strong>
+              <p>JAX is a Python library for machine learning research. It provides a high-level API for automatic differentiation, just-in-time (JIT) compilation, and parallelization.</p>
+              <p>In JAX one can use Pallas to write custom kernels. Pallas is an experimental JAX extension for writing custom kernels for GPUs and TPUs. Instead of writing CUDA code directly, you write high-performance JAX kernels that are then automatically compiled for the specific hardware.</p>
+            </li>
+          </ul>
+
+          <p>Understanding how these frameworks implement custom kernels is very helpful to understand the underlying optimization. Also, there are many cases where these might be slow and inefficient. One thing which you would notice is we always take batch size in powers of 2. This is because we want to make sure that we have a full block of threads to execute. We'll learn more details about Triton, PyTorch, JAX and how to work with them in the next few posts.</p>
+        </section>
+        <section>
+          <h2>Miscellaneous - HIP, ROCm, OpenMP</h2>
+
+          <p>This topic would be of interest if you are working with AMD GPUs, as AMD has its own stack of tools to program GPUs.</p>
+
+          <p>
+            <strong>ROCm</strong> is an Advanced Micro Devices (AMD) software stack for graphics processing unit (GPU) programming. ROCm spans several domains, including general-purpose computing on graphics processing units (GPGPU), high performance computing (HPC), and heterogeneous computing. It offers several programming models:
+          </p>
+
+          <ul>
+            <li><strong>HIP (Heterogeneous-compute Interface for Portability)</strong> - GPU-kernel-based programming</li>
+            <li><strong>OpenMP</strong> - Directive-based programming</li>
+            <li><strong>OpenCL</strong> - Open Computing Language for heterogeneous computing</li>
+          </ul>
+        </section>
+      </article>
+      <section>
+        <h2>References</h2>
+        <ul>
+          <li>Programming Massively Parallel Processors: A Hands-on Approach <a href="https://share.google/No0Lb5QGegPbW6BXF">by David B. Kirk, Wen-mei W. Hwu</a></li>
+          <li><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/">CUDA C Programming Guide</a></li>
+          <li><a href="https://rocm.docs.amd.com/projects/HIP/en/latest/understand/programming_model.html">HIP Programming Model</a></li>
+          <li><a href="https://www.youtube.com/watch?v=V1tINV2-9p4&list=PLoROMvodv4rMp7MTFr4hQsDEcX7Bx6Odp&index=1">Parallel computing stanford course</a></li>
+          <li><a href="https://developer.nvidia.com/blog/nvidia-ampere-architecture-in-depth/">Nvidia Ampere Architechture</a></li>
+          <li><a href="https://jax-ml.github.io/scaling-book/gpus/">Jax Scaling Book</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© 2025 Vansh Nawander</p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+[
+  {
+    "title": "Reverse engineering Flash Attention 4",
+    "author": "modal.com",
+    "status": "to_read",
+    "link": "https://modal.com/blog/reverse-engineer-flash-attention-4",
+    "notes": "",
+    "dateAdded": "2025-09-29"
+  },
+  {
+    "title": "A history of NVidia Stream Multiprocessor",
+    "author": "Fabien Sanglard",
+    "status": "to_read",
+    "link": "https://fabiensanglard.net/cuda/",
+    "notes": "",
+    "dateAdded": "2025-09-29"
+  },
+  {
+    "title": "GPU glossary",
+    "author": "modal.com",
+    "status": "to_read",
+    "link": "https://modal.com/gpu-glossary/readme",
+    "notes": "",
+    "dateAdded": "2025-09-29"
+  },
+  {
+    "title": "Parallel Thread Execution (PTX) in CUDA",
+    "author": "NVIDIA",
+    "status": "to_read",
+    "link": "https://docs.nvidia.com/cuda/parallel-thread-execution/",
+    "notes": "",
+    "dateAdded": "2025-09-26"
+  },
+  {
+    "title": "CUDA C++ Programming Guide",
+    "author": "NVIDIA",
+    "status": "to_read",
+    "link": "https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html",
+    "notes": "",
+    "dateAdded": "2025-09-26"
+  },
+  {
+    "title": "accelerated computing MIT ",
+    "author": "MIT",
+    "status": "to_read",
+    "link": "https://accelerated-computing.academy/fall25/lectures/",
+    "notes": "",
+    "dateAdded": "2025-09-26"
+  },
+  {
+    "title": "Parallel programming stanford",
+    "author": "Kayvon Fatahalian and Kunle Olukotun",
+    "status": "to_read",
+    "link": "https://www.youtube.com/playlist?list=PLoROMvodv4rMp7MTFr4hQsDEcX7Bx6Odp",
+    "notes": "",
+    "dateAdded": "2025-09-26"
+  },
+  {
+    "title": "Introduction to the HIP programming model",
+    "author": "AMD",
+    "status": "completed",
+    "link": "https://rocm.docs.amd.com/projects/HIP/en/latest/understand/programming_model.html",
+    "notes": "",
+    "dateAdded": "2025-09-26"
+  },
+  {
+    "title": "GPU blog by horrace",
+    "author": "horrace",
+    "status": "completed",
+    "link": "https://horace.io/brrr_intro.html",
+    "notes": "",
+    "dateAdded": "2025-09-18"
+  },
+  {
+    "title": "How to Optimize a CUDA Matmul Kernel for cuBLAS-like Performance",
+    "author": "Siboehm",
+    "status": "to_read",
+    "link": "https://siboehm.com/articles/22/CUDA-MMM",
+    "notes": "",
+    "dateAdded": "2025-09-29"
+  },
+  {
+    "title": "Programming Massively parallel processors",
+    "author": "David Kirk and Wen-mei Hwu",
+    "status": "to_read",
+    "link": "https://www.youtube.com/playlist?list=PLoROMvodv4rMp7MTFr4hQsDEcX7Bx6Odp",
+    "notes": "",
+    "dateAdded": "2025-09-18"
+  }
+]

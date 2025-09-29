@@ -1,0 +1,9 @@
+[
+  {
+    "title": "GPU Parallel Programming",
+    "slug": "gpu-parallel-programming-intro",
+    "path": "posts/gpu-parallel-programming-intro.html",
+    "date": "2025-09-01",
+    "excerpt": "Introduction to GPU parallel programming and various frameworks"
+  }
+]
