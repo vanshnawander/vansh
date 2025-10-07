@@ -1,5 +1,21 @@
 [
   {
+    "title": "Nvidia Tensor Core Evolution from Volta to Blackwell",
+    "author": "Semianalysis",
+    "status": "to_read",
+    "link": "https://semianalysis.com/2025/06/23/nvidia-tensor-core-evolution-from-volta-to-blackwell/",
+    "notes": "",
+    "dateAdded": "2025-10-06"
+  },
+  {
+    "title": "How CUDA Programming Works",
+    "author": "Stephen Jones",
+    "status": "to_read",
+    "link": "https://www.nvidia.com/en-us/on-demand/session/gtcfall22-a41101/",
+    "notes": "",  
+    "dateAdded": "2025-10-06"
+  },
+  {
     "title": "Cuda basics",
     "author": "Tinkerd",
     "status": "to_read",
