@@ -38,7 +38,8 @@ async function loadReading() {
   const categories = [
     { name: 'Parallel Computing', file: 'parallel-computing-reading.json', listId: 'parallel-computing-list', sectionId: 'parallel-computing-section' },
     { name: 'Paper Reading', file: 'paper-reading.json', listId: 'paper-reading-list', sectionId: 'paper-reading-section' },
-    { name: 'Deep Learning', file: 'deep-learning-reading.json', listId: 'deep-learning-list', sectionId: 'deep-learning-section' }
+    { name: 'Deep Learning', file: 'deep-learning-reading.json', listId: 'deep-learning-list', sectionId: 'deep-learning-section' },
+    { name: 'Miscellaneous', file: 'reading.json', listId: 'miscellaneous-list', sectionId: 'miscellaneous-section' }
   ];
 
   for (const cat of categories) {

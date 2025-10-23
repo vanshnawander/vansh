@@ -1,67 +1,18 @@
 [ 
   {
-    "title": "Parallel Thread Execution (PTX) in CUDA",
-    "author": "NVIDIA",
+    "title": "Agentic AI for Computer Systems Design",
+    "author": "Harvard",
     "status": "to_read",
-    "link": "https://docs.nvidia.com/cuda/parallel-thread-execution/",
+    "link": "https://harvard-edge.github.io/cs249r_fall2025/",
     "notes": "",
-    "dateAdded": "2025-09-26"
-  },
-  {
-    "title": "CUDA C++ Programming Guide",
-    "author": "NVIDIA",
-    "status": "to_read",
-    "link": "https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html",
-    "notes": "",
-    "dateAdded": "2025-09-26"
-  },
-
-  {
-    "title": "accelerated computing MIT ",
-    "author": "MIT",
-    "status": "to_read",
-    "link": "https://accelerated-computing.academy/fall25/lectures/",
-    "notes": "",
-    "dateAdded": "2025-09-26"
-  },
-  {
-    "title": "Parallel programming stanford",
-    "author": "Kayvon Fatahalian and Kunle Olukotun",
-    "status": "to_read",
-    "link": "https://www.youtube.com/playlist?list=PLoROMvodv4rMp7MTFr4hQsDEcX7Bx6Odp",
-    "notes": "",
-    "dateAdded": "2025-09-26"
-  },
-  {
-    "title": "Introduction to the HIP programming model",
-    "author": "AMD",
-    "status": "completed",
-    "link": "https://rocm.docs.amd.com/projects/HIP/en/latest/understand/programming_model.html",
-    "notes": "",
-    "dateAdded": "2025-09-26"
-  },
-  {
-    "title": "Scaling Book",
-    "author": "JAX ML",
-    "status": "to_read",
-    "link": "https://jax-ml.github.io/scaling-book/",
-    "notes": "",
-    "dateAdded": "2025-09-18"
-  },
-  {
-    "title": "GPU blog by horrace",
-    "author": "horrace",
-    "status": "completed",
-    "link": "https://horace.io/brrr_intro.html",
-    "notes": "",
-    "dateAdded": "2025-09-18"
-  },
-  {
-    "title": "Programming Massively parallel processors",
-    "author": "David Kirk and Wen-mei Hwu",
-    "status": "to_read",
-    "link": "https://www.youtube.com/playlist?list=PLoROMvodv4rMp7MTFr4hQsDEcX7Bx6Odp",
-    "notes": "",
-    "dateAdded": "2025-09-18"
-  }
+    "dateAdded": "2025-10-23"
+    },
+    {
+      "title": "Robot Learning Tutorial",
+      "author": "Hugging Face",
+      "status": "to_read",
+      "link": "https://huggingface.co/spaces/lerobot/robot-learning-tutorial",
+      "notes": "",
+      "dateAdded": "2025-10-23"
+    }
 ]
