@@ -1,5 +1,21 @@
 [
   {
+    "title": "Adaptive Gradient Methods with Local Guarantees",
+    "author": "Zhou Lu and et al.",
+    "status": "to_read",
+    "link": "https://arxiv.org/pdf/2203.01400",
+    "notes": "",
+    "dateAdded": "2025-10-26"
+  },
+  {
+    "title": "Random matrix theory and the loss surfaces of neural networks",
+    "author": "Nicholas P. Baskerville",
+    "status": "to_read",
+    "link": "https://arxiv.org/pdf/2306.02108",
+    "notes": "",
+    "dateAdded": "2025-10-26"
+  },
+  {
     "title": "Scaling Book",
     "author": "JAX ML",
     "status": "to_read",

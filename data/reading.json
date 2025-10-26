@@ -1,5 +1,21 @@
 [ 
   {
+    "title": "Evan's Reading List",
+    "author": "Evan",
+    "status": "to_read",
+    "link": "https://bigmanoncampus.notion.site/reading-9385f76e5a624d75bb1a0c3d773a65c8",
+    "notes": "",
+    "dateAdded": "2025-10-26"
+  },
+  {
+    "title": "Automated GPU Kernels",
+    "author": "Simon Guo and Alex Zhang",
+    "status": "to_read",
+    "link": "https://simonguo.tech/blog/2025-10-automated-gpu-kernels.html",
+    "notes": "",
+    "dateAdded": "2025-10-26"
+  },
+  {
     "title": "Agentic AI for Computer Systems Design",
     "author": "Harvard",
     "status": "to_read",
@@ -12,6 +28,14 @@
       "author": "Hugging Face",
       "status": "to_read",
       "link": "https://huggingface.co/spaces/lerobot/robot-learning-tutorial",
+      "notes": "",
+      "dateAdded": "2025-10-23"
+    },
+    {
+      "title": "Learning Modern 3D Graphics Programming",
+      "author": "Pavel Rojtberg",
+      "status": "to_read",
+      "link": "https://paroj.github.io/gltut/About%20this%20Book.html",
       "notes": "",
       "dateAdded": "2025-10-23"
     }

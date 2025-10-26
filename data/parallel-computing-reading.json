@@ -1,5 +1,37 @@
 [
   {
+    "title": "Outperforming cuBLAS on H100: A Worklog",
+    "author": "Pranjal Shankhdhar",
+    "status": "to_read",
+    "link": "https://cudaforfun.substack.com/p/outperforming-cublas-on-h100-a-worklog",
+    "notes": "",
+    "dateAdded": "2025-10-26"
+  },
+  {
+    "title": "Matrix multiplication on Blackwell part 1 - Introduction",
+    "author": "Modular",
+    "status": "to_read",
+    "link": "https://www.modular.com/blog/matrix-multiplication-on-nvidias-blackwell-part-1-introduction",
+    "notes": "",
+    "dateAdded": "2025-10-26"
+  },
+  {
+    "title": "Matrix multiplication on Blackwell part 4 - Breaking SOTA",
+    "author": "Modular",
+    "status": "to_read",
+    "link": "https://www.modular.com/blog/matrix-multiplication-on-blackwell-part-4---breaking-sota",
+    "notes": "",
+    "dateAdded": "2025-10-26"
+  },
+  {
+    "title": "Mojo language book",
+    "author": "",
+    "status": "to_read",
+    "link": "https://mojo-lang.com/miji/intro.html",
+    "notes": "",
+    "dateAdded": "2025-10-26"
+  },
+  {
     "title": "Nvidia Tensor Core Evolution from Volta to Blackwell",
     "author": "Semianalysis",
     "status": "to_read",
