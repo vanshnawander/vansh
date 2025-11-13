@@ -1,0 +1,18 @@
+[
+    {
+        "title": "Nand2Tetris",
+        "author": "Noam Nisan and Shimon Schocken",
+        "status": "to_read",
+        "link": "https://www.nand2tetris.org/",
+        "notes": "",
+        "dateAdded": "2025-11-14"
+    },
+    {
+        "title": "Getting Started with PyTorch",
+        "author": "",
+        "status": "to_read",
+        "link": "https://apxml.com/courses/getting-started-with-pytorch",
+        "notes": "",
+        "dateAdded": "2025-11-14"
+    }
+]
