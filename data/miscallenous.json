@@ -14,5 +14,14 @@
         "link": "https://apxml.com/courses/getting-started-with-pytorch",
         "notes": "",
         "dateAdded": "2025-11-14"
+    },
+    {
+         "title": "Blog posts on optimizations by Michael Benesty",
+        "author": "",
+        "status": "to_read",
+        "link": "https://pommedeterresautee.github.io/posts/2/",
+        "notes": "",
+        "dateAdded": "2025-12-10"
+
     }
 ]

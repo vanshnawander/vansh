@@ -1,5 +1,13 @@
 [
   {
+    "title": "Build an LLM from scratch in MAX",
+    "author": "Modular",
+    "status": "to_read",
+    "link": "https://llm.modular.com/",
+    "notes": "",
+    "dateAdded": "2026-02-02"
+  },
+  {
     "title": "Outperforming cuBLAS on H100: A Worklog",
     "author": "Pranjal Shankhdhar",
     "status": "to_read",
