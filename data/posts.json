@@ -12,5 +12,5 @@
     "path": "posts/blocks-threads-kernels.html",
     "date": "2025-10-03",
     "excerpt": "A deeper dive into blocks, threads, kernels and the CUDA execution model"
-  }
+  } 
 ]
