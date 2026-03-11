@@ -1,5 +1,21 @@
 [
   {
+    "title": "CUDA-L2: Surpassing cuBLAS Performance for Matrix Multiplication through Reinforcement Learning",
+    "author": "DeepReinforce Team",
+    "status": "to_read",
+    "link": "https://arxiv.org/pdf/2512.02551v1",
+    "notes": "",
+    "dateAdded": "2026-03-11"
+  },
+  {
+    "title": "Accelerating MoEs with a Triton Persistent Cache-Aware Grouped GEMM Kernel",
+    "author": "PyTorch",
+    "status": "to_read",
+    "link": "https://pytorch.org/blog/accelerating-moes-with-a-triton-persistent-cache-aware-grouped-gemm-kernel/",
+    "notes": "MOE, MLSYS",
+    "dateAdded": "2026-03-08"
+  },
+  {
     "title": "Outperforming cuBLAS on H100: A Worklog",
     "author": "Pranjal Shankhdhar",
     "status": "to_read",
