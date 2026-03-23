@@ -1,5 +1,13 @@
 [
   {
+    "title": "Hopper TMA Unit",
+    "author": "PyTorch",
+    "status": "to_read",
+    "link": "https://pytorch.org/blog/hopper-tma-unit/",
+    "notes": "",
+    "dateAdded": "2026-03-23"
+  },
+  {
     "title": "CUDA-L2: Surpassing cuBLAS Performance for Matrix Multiplication through Reinforcement Learning",
     "author": "DeepReinforce Team",
     "status": "to_read",
