@@ -19,5 +19,12 @@
     "path": "posts/performance-matmul.html",
     "date": "2025-10-27",
     "excerpt": "Exploring performance considerations and tiled matrix multiplication"
+  },
+  {
+    "title": "Understanding MoE (Mixture of Experts) Architecture in Depth",
+    "slug": "moe-working",
+    "path": "posts/moe-working.html",
+    "date": "2026-03-30",
+    "excerpt": "Comprehensive guide to Mixture of Experts architecture, from fundamentals to advanced implementations"
   }
 ]

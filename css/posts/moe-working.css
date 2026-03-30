@@ -1,0 +1,204 @@
+/* Per-post styles for moe-working.html */
+
+.post.moe-working {
+  line-height: 1.75;
+}
+
+/* Text justification */
+.post.moe-working p {
+  margin: 8px 0;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* Image and figure styling */
+.post.moe-working figure {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.post.moe-working img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.post.moe-working figcaption {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--text-muted, #666);
+  font-style: italic;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Code and pre blocks */
+.post.moe-working code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  background: color-mix(in oklab, var(--bg), black 5%);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: var(--link, #0066cc);
+}
+
+.post.moe-working pre {
+  overflow: auto;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: color-mix(in oklab, var(--bg), black 3%);
+  margin: 16px 0;
+}
+
+.post.moe-working pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: 1em;
+  color: inherit;
+}
+
+/* Highlight styles */
+.post.moe-working .highlight-subheading {
+  color: var(--link, #0066cc);
+  font-weight: 600;
+  font-size: 1.1em;
+}
+
+.post.moe-working .highlight-term {
+  background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-weight: 500;
+  color: #856404;
+}
+
+.post.moe-working .important-term {
+  color: var(--link, #0066cc);
+  font-weight: 600;
+}
+
+.post.moe-working .code-term {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  background: color-mix(in oklab, var(--bg), black 5%);
+  padding: 1px 4px;
+  border-radius: 3px;
+  color: var(--link, #0066cc);
+  font-size: 0.95em;
+}
+
+/* Spacing tweaks */
+.post.moe-working section {
+  margin: 16px 0 18px;
+}
+
+/* Tables */
+.post.moe-working table { 
+  width: 100%; 
+  border-collapse: collapse; 
+  margin: 16px 0;
+}
+
+.post.moe-working table th,
+.post.moe-working table td {
+  border: 1px solid var(--border);
+  padding: 8px 10px;
+  text-align: left;
+}
+
+.post.moe-working table th {
+  background: color-mix(in oklab, var(--bg), black 5%);
+  font-weight: 600;
+}
+
+.post.moe-working .table-wrap { 
+  overflow-x: auto; 
+}
+
+/* Note callouts */
+.post.moe-working .note {
+  border-left: 3px solid var(--link);
+  background: color-mix(in oklab, var(--link), transparent 92%);
+  padding: 8px 10px;
+  border-radius: 6px;
+  margin: 12px 0;
+}
+
+/* Math equations */
+.post.moe-working .math-equation {
+  background: color-mix(in oklab, var(--bg), black 2%);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px;
+  text-align: center;
+  font-family: 'Times New Roman', serif;
+  font-size: 1.1em;
+  margin: 16px 0;
+  overflow-x: auto;
+}
+
+/* Contents navigation */
+.post.moe-working .contents ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.post.moe-working .contents li {
+  margin: 6px 0;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.post.moe-working .contents a {
+  text-decoration: none;
+  color: var(--link);
+  font-weight: 500;
+}
+
+.post.moe-working .contents a:hover {
+  text-decoration: underline;
+}
+
+/* Section headings */
+.post.moe-working h2 {
+  color: var(--text);
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 4px;
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+.post.moe-working h3 {
+  color: var(--text);
+  margin-top: 20px;
+  margin-bottom: 12px;
+}
+
+/* Lists styling */
+.post.moe-working ul {
+  padding-left: 20px;
+}
+
+.post.moe-working li {
+  margin: 6px 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .post.moe-working {
+    font-size: 0.95em;
+  }
+  
+  .post.moe-working .math-equation {
+    font-size: 1em;
+    padding: 12px;
+  }
+  
+  .post.moe-working table {
+    font-size: 0.9em;
+  }
+}
