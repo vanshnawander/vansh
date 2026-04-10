@@ -12,5 +12,12 @@
     "path": "posts/blocks-threads-kernels.html",
     "date": "2025-10-03",
     "excerpt": "A deeper dive into blocks, threads, kernels and the CUDA execution model"
-  } 
+  },
+  {
+    "title": "Bonsai Model Analysis",
+    "slug": "bonsai-model-analysis",
+    "path": "posts/bonsai-model-analysis.html",
+    "date": "2026-04-10",
+    "excerpt": "analysis of Bonsai 1-bit quantized LLMs"
+  }
 ]

@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bonsai Model Analysis: 1-Bit Quantization for LLMs</title>
+  <meta name="description"
+    content="Analysis of Bonsai 1-bit quantized LLMs - why they are actually fast and how grouping works." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/posts/bonsai-model-analysis.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">Vansh Nawander</a>
+      <nav class="nav">
+        <a class="nav-link" href="../index.html">Home</a>
+        <a class="nav-link" href="../about.html">About</a>
+        <a class="nav-link active" href="../blogs.html">Blogs</a>
+        <a class="nav-link" href="../reading.html">Reading</a>
+        <a class="nav-link" href="../contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="post bonsai-model-analysis">
+      <header class="post-header">
+        <h1>Bonsai-8B Model Analysis: Why is this actually fast?</h1>
+        <p class="muted">Published Apr 2026 • ⏱ 35 min read</p>
+      </header>
+
+      <section class="overview">
+        <p>
+          The PrismML team recently released their Bonsai family of models—1-bit quantized models with a compression
+          ratio of 12x-14x. I searched for a complete breakdown of these models and what's actually happening inside
+          them, but didn't find many resources. After reading through all available resources, code, and brainstorming
+          with Claude, here's the breakdown of what I learned about these models and their inner workings.
+        </p>
+        <p>
+          The main theme of this post is to understand the quantization (1.125 bits, referred to as Q1_0 with g=128),
+          why these models are fast, and the parameter breakdown (it's just Qwen3).
+        </p>
+      </section>
+
+      <section id="contents">
+        <h2>Contents</h2>
+        <ul>
+          <li><a href="#bonsai-vs-bitnet">Bonsai vs BitNet</a></li>
+          <li><a href="#grouping">The 1.125 Bit Calculation</a></li>
+          <li><a href="#bonsai-scale-usage">How Bonsai Actually Uses Scales</a></li>
+          <li><a href="#gguf-inspection">Under the Hood: GGUF Inspection</a></li>
+          <li><a href="#summary">Key Takeaways</a></li>
+        </ul>
+      </section>
+
+      <section id="bonsai-vs-bitnet">
+        <h2>Bonsai vs BitNet</h2>
+
+        <h3 class="section-subheading">What is BitNet?</h3>
+        <p>
+          The first thing that came to my mind after seeing the Q1 quantization was Microsoft's BitNet models.
+          Initially, I thought these Bonsai models would use the same method as BitNet, but they're actually different.
+        </p>
+        <p>
+          <strong>BitNet</strong> is a 1.58-bit LLM, where 1.58 actually represents 3 states: {-1, 0, 1}. A single bit
+          can store 2 states, so 3 states require log₂(3) = 1.58 bits of information to represent optimally — that's
+          information theory (Shannon's source coding theorem), not a literal extra bit. In practice, 4 ternary values
+          are packed into one INT8 (since 3⁴ = 81 &lt; 256), giving an amortized cost of 8/4 = 2 bits, which is close to
+          the theoretical 1.58. Since systems don't have a native 1.58-bit datatype, these are packed into integer
+          variants like INT8 or INT32.
+        </p>
+        <p>
+          However, BitNet is not entirely 1.58 bits—some components of the model use higher precision:
+        </p>
+        <ul class="checklist">
+          <li>Activations: 8-bit (BitNet b1.0 / b1.58), 4-bit (b1.58 v2)</li>
+          <li>Weights are 1.58-bit quantized</li>
+          <li>Embeddings and output heads (which play a major role) are kept in full precision</li>
+        </ul>
+
+        <h3 class="section-subheading">How BitNet Computes — No Dequantization</h3>
+        <p>
+          All quantized weights have associated scales: activation scales for activations and weight scales for weights.
+          For BitNet, each layer has a single scale value responsible for scaling the quantized values of the entire
+          layer. (The actual smartness of Bonsai comes from here—we'll see this as we understand the approach.)
+        </p>
+        <p>
+          <strong>But here's the critical distinction:</strong> with proper kernels like <code>bitnet.cpp</code>, BitNet
+          <em>never dequantizes</em> weights back to floating point. Instead, the entire matrix multiply stays as pure
+          integer operations on {-1, 0, +1} values — essentially XNOR + popcount operations. The two scale values (one
+          weight scale, one activation scale) are applied just once at the very end. This is why BitNet achieves both
+          memory <em>and</em> compute savings.
+        </p>
+
+        <h3 class="section-subheading">Why Scales? Where Does the Speedup Come From?</h3>
+        <p>
+          <strong>Why scales?</strong> The answer is <strong>data movement</strong>. I briefly mention this in my <a
+            href="gpu-parallel-programming-intro.html#cpu-vs-gpu">intro to GPU programming (CPU vs GPU section)</a>. All
+          of this is essentially optimizing for data movement. You can read more about this in the recent paper <a
+            href="#ref-1">"Data Gravity and the Energy Limits of Computation"</a> <sup>[1]</sup>. In short, data
+          movement takes the majority of time as well as energy (power consumption).
+        </p>
+        <p>
+          When you use lower quantizations, you pack the data to save on all data movement overhead. For GGUF-based
+          inference (which Bonsai uses), you later unpack and scale them when actual computation is about to happen,
+          which incurs a small cost but is much less compared to what full-precision data movement would require. For
+          BitNet with bitnet.cpp, you don't even unpack — you compute directly on packed bits.
+        </p>
+        <p>
+          This is also why you need specialized kernels to handle packing, unpacking, and scaling based on the specific
+          device architecture—that's where the actual speedup and gains come from.
+        </p>
+
+        <h3 class="section-subheading">Enter Bonsai</h3>
+        <p>
+          I believe it's now clear what BitNet and this ternary quantization were doing and where the speedup came from.
+          Let's see how Bonsai does this differently.
+        </p>
+        <p>
+          <strong>Bonsai models</strong> are quantized to Q1_0 (g=128) format, which has only two states: {-1, 1}. A
+          group of 128 weights shares a single scale value. This is where things become interesting. Bonsai models apply
+          this quantization to all layers and parameters, whereas BitNet retains higher precision values for
+          activations, embeddings, etc.
+        </p>
+        <p>
+          Since they share a scale for a 128-weight block, it's possible to do this without compromising accuracy. Why?
+          In a layer with 20,000 weights, the BitNet model would have only 3 unique values, but for the Bonsai model,
+          the total unique values would be (20,000 // 128) × 2, which is approximately 312. This gives us more
+          expressive power. This is actually very interesting because you're saving more memory while simultaneously
+          increasing the expressive power of the model.
+        </p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>BitNet b1.58</th>
+                <th>Bonsai-8B</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Storage per weight</td>
+                <td>~1.58 bits (3 states)</td>
+                <td>~1.125 bits (2 states + 1 FP16 scale per 128 weights)</td>
+              </tr>
+              <tr>
+                <td>Scaling granularity</td>
+                <td>Layer-wise (1 scalar)</td>
+                <td>Group-wise (g=128)</td>
+              </tr>
+              <tr>
+                <td>Activations</td>
+                <td>INT8 (v1/b1.58) / INT4 (v2)</td>
+                <td>1 bit Quantized </td>
+              </tr>
+              <tr>
+                <td>Embeddings</td>
+                <td>Higher precision</td>
+                <td>1-bit </td>
+              </tr>
+              <tr>
+                <td>Compute style</td>
+                <td>XNOR + popcount (integer only)</td>
+                <td>Dequantize → FP16 matmul</td>
+              </tr>
+              <tr>
+                <td>Compute savings</td>
+                <td>✅ Memory + Compute</td>
+                <td>✅ Memory only</td>
+              </tr>
+              <tr>
+                <td>Training</td>
+                <td>From scratch (QAT)</td>
+                <td>From scratch (QAT)</td>
+              </tr>
+              <tr>
+                <td>Inference runtime</td>
+                <td>bitnet.cpp</td>
+                <td>llama.cpp / GGUF</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+
+
+      <section id="grouping">
+        <h2>The 1.125 Bit Calculation</h2>
+
+        <h3 class="section-subheading">Where Does 1.125 Come From?</h3>
+        <p>
+          The "1.125 bit" number comes from a very specific hardware alignment choice. Bonsai groups 128 weights
+          together and gives that entire group a single <span class="important-term">FP16 Scale</span>. I did some
+          research and learned that 128 is actually a standard from the GPTQ format, used for hardware-specific
+          reasons—it's a sweet spot that makes things faster.
+        </p>
+        <p>
+          Each weight is 1 bit (sign), and we have one 16-bit (2 byte) scale factor for every 128 weights. The math
+          looks like this:
+        </p>
+        <div class="calculation-box">
+          <div class="calc-label">Bit Cost Breakdown per Weight</div>
+          <div class="calc-row">
+            <span class="calc-item">1 bit</span>
+            <span class="calc-sep">→</span>
+            <span class="calc-desc">sign bit (the weight value itself: +1 or −1)</span>
+          </div>
+          <div class="calc-row">
+            <span class="calc-item">16 bits ÷ 128</span>
+            <span class="calc-sep">→</span>
+            <span class="calc-desc">cost of the shared FP16 scale, amortized across 128 weights</span>
+          </div>
+          <div class="calc-row calc-result-row">
+            <span class="calc-item">1 + 0.125</span>
+            <span class="calc-sep">=</span>
+            <span class="calc-result">1.125 bits / weight</span>
+          </div>
+          <code>1 bit (weight) + (16 bits (scale) / 128 weights) = 1 + 0.125 = 1.125 bits/weight</code>
+        </div>
+        <p>
+          This extra 0.125 bits provides a massive boost in fidelity because it allows the model to handle local
+          outliers in weight distribution. It's like having a volume knob for every tiny segment of the model instead of
+          one master volume for the whole layer.
+        </p>
+      </section>
+
+      <!-- New: Bonsai Scale Usage Section -->
+      <section id="bonsai-scale-usage">
+        <h2>How Bonsai Actually Uses Scales</h2>
+
+        <h3 class="section-subheading">The Core Insight: Scale Applied Before Matmul</h3>
+        <p>
+          This is probably the most important implementation detail to understand. Unlike BitNet — where a single
+          layer-wide constant scale can be pushed to after the matrix multiply — Bonsai's group scales must be applied
+          <em>before</em> the matmul. Here's why.
+        </p>
+
+        <div class="key-insight">
+          <h4>The Linear Algebra Reason</h4>
+          <p>
+            A single constant scalar can always be factored out of a matrix multiply:
+            <code>(c × W) @ x = c × (W @ x)</code>. So BitNet can pull its one scale to the very end and keep the matmul
+            pure integer. But Bonsai has 156 <em>different</em> scales across the weight matrix — you cannot factor out
+            a varying quantity. Each group's scale must be applied to its group of weights <em>before</em> the multiply
+            happens.
+          </p>
+        </div>
+
+        <h3 class="section-subheading">Bonsai Runtime Flow</h3>
+
+        <div class="flow-diagram">
+          <div class="flow-title">Bonsai Inference: Weight → Output</div>
+          <div class="flow-steps">
+            <div class="flow-step">
+              <div class="flow-step-icon">💾</div>
+              <div class="flow-step-label">Stored in GGUF</div>
+              <div class="flow-step-desc">Packed 1-bit signs + 156 FP16 scales<br>(for every 20,000 weights in a layer)
+              </div>
+            </div>
+            <div class="flow-arrow">▼</div>
+            <div class="flow-step flow-step-action">
+              <div class="flow-step-icon">🔓</div>
+              <div class="flow-step-label">Dequantize</div>
+              <div class="flow-step-desc">Unpack bits → apply each group's FP16 scale<br>Result: FP16 weights like
+                {-0.847, +0.847, -0.312 …}</div>
+            </div>
+            <div class="flow-arrow">▼</div>
+            <div class="flow-step flow-step-action">
+              <div class="flow-step-icon">⚙️</div>
+              <div class="flow-step-label">FP16 Matmul</div>
+              <div class="flow-step-desc">Standard floating-point multiply-accumulate<br>with FP16 activations</div>
+            </div>
+            <div class="flow-arrow">▼</div>
+            <div class="flow-step flow-step-output">
+              <div class="flow-step-icon">✅</div>
+              <div class="flow-step-label">Output</div>
+              <div class="flow-step-desc">Layer output in FP16</div>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="section-subheading">Contrast: BitNet Runtime Flow</h3>
+
+        <div class="flow-diagram flow-diagram-bitnet">
+          <div class="flow-title">BitNet Inference: Weight → Output (bitnet.cpp)</div>
+          <div class="flow-steps">
+            <div class="flow-step">
+              <div class="flow-step-icon">💾</div>
+              <div class="flow-step-label">Stored</div>
+              <div class="flow-step-desc">Packed bits + 1 FP16 weight scale + 1 FP16 activation scale</div>
+            </div>
+            <div class="flow-arrow">▼</div>
+            <div class="flow-step flow-step-action">
+              <div class="flow-step-icon">🔢</div>
+              <div class="flow-step-label">Integer Matmul Only</div>
+              <div class="flow-step-desc">Weights stay as {-1, 0, +1} integers<br>Activations quantized to
+                INT8<br>Compute = XNOR + popcount — no float multiply at all</div>
+            </div>
+            <div class="flow-arrow">▼</div>
+            <div class="flow-step flow-step-action">
+              <div class="flow-step-icon">✖️</div>
+              <div class="flow-step-label">Apply Both Scales Once</div>
+              <div class="flow-step-desc"><code>output = raw_output × α_w × α_x</code><br>Only 2 float multiplications
+                for the entire layer</div>
+            </div>
+            <div class="flow-arrow">▼</div>
+            <div class="flow-step flow-step-output">
+              <div class="flow-step-icon">✅</div>
+              <div class="flow-step-label">Output</div>
+              <div class="flow-step-desc">Magnitude-restored layer output</div>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="section-subheading">Why More Scales = More Expressiveness</h3>
+        <p>
+          Consider a layer with 20,000 weights. Group 47 might have large weights (scale ≈ 0.847), while group 112 has
+          tiny weights (scale ≈ 0.073). Without group scales, a single global scale would crush the small weights — 0.03
+          ÷ 0.412 ≈ 0, information gone. With group scales, 0.11 ÷ 0.073 ≈ 1.5, which rounds to ±1 and the variation is
+          preserved.
+        </p>
+        <p>
+          This is why Bonsai claims better accuracy than you'd expect at ~1.125 bits: it's 156 independent "volume
+          knobs" instead of 1 master knob, at the cost of the matmul staying in FP16.
+        </p>
+
+        <div class="scale-comparison-grid">
+          <div class="scale-card scale-card-bitnet">
+            <div class="scale-card-header">BitNet — 1 Scale Per Layer</div>
+            <div class="scale-card-body">
+              <div class="scale-viz">
+                <div class="scale-bar" style="width:100%"></div>
+                <div class="scale-bar" style="width:100%"></div>
+                <div class="scale-bar" style="width:100%"></div>
+                <div class="scale-bar" style="width:100%"></div>
+              </div>
+              <p class="scale-note">Same scale applied to every group → small weights get crushed</p>
+              <div class="scale-stats">
+                <span class="scale-stat">🔢 3 unique values</span>
+                <span class="scale-stat">⚡ Integer compute</span>
+              </div>
+            </div>
+          </div>
+          <div class="scale-card scale-card-bonsai">
+            <div class="scale-card-header">Bonsai — 156 Scales Per Layer (20K weights)</div>
+            <div class="scale-card-body">
+              <div class="scale-viz scale-viz-varied">
+                <div class="scale-bar" style="width:85%"></div>
+                <div class="scale-bar" style="width:30%"></div>
+                <div class="scale-bar" style="width:65%"></div>
+                <div class="scale-bar" style="width:15%"></div>
+                <div class="scale-bar" style="width:90%"></div>
+                <div class="scale-bar" style="width:45%"></div>
+              </div>
+              <p class="scale-note">Each group has its own scale → local variation preserved</p>
+              <div class="scale-stats">
+                <span class="scale-stat">🔢 ~312 unique values</span>
+                <span class="scale-stat">⚡ FP16 compute</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      <section id="gguf-inspection">
+        <h2>Under the Hood: GGUF Inspection</h2>
+
+        <h3 class="section-subheading">Architecture</h3>
+        <p>
+          I wanted to check the details in depth, so I inspected the GGUF file provided for actual numbers and model
+          architecture. As they mention clearly, the Bonsai models use the Qwen3 architecture—the same vocab, layers,
+          parameters, and everything else.
+        </p>
+
+        <h3 class="section-subheading">Size &amp; Compression Numbers</h3>
+        <div class="stats-box">
+          <h3>Model Statistics</h3>
+          <ul>
+            <li><strong>Total Parameter Values:</strong> 8,188,548,096 (~8.2B)</li>
+            <li><strong>Model Stored Size:</strong> 1.15 GB</li>
+            <li><strong>FP32-Equivalent Size:</strong> 32.75 GB (approx)</li>
+            <li><strong>FP16 Equivalent Size:</strong> 16.38 GB (approx)</li>
+            <li><strong>Model-wide Compression compared to FP32:</strong> <strong>28.42x</strong></li>
+            <li><strong>Model-wide Compression compared to FP16:</strong> <strong>14.2x</strong></li>
+          </ul>
+        </div>
+
+        <h3 class="section-subheading">Storage Breakdown</h3>
+        <p>Here's how much of this is 1-bit and 16-bit:</p>
+
+        <div class="stats-box">
+          <h4>Non-scaled weights payload (sign bits only):</h4>
+          <ul>
+            <li><strong>Bits:</strong> 8,188,239,872</li>
+            <li><strong>Bytes:</strong> 1,023,529,984</li>
+            <li><strong>Size:</strong> 1.023530 GB (0.953237 GiB)</li>
+          </ul>
+        </div>
+
+        <div class="stats-box">
+          <h4>Scaled payload (from tensor bytes minus sign bits):</h4>
+          <ul>
+            <li><strong>Bits:</strong> 1,023,529,984</li>
+            <li><strong>Bytes:</strong> 127,941,248</li>
+            <li><strong>Size:</strong> 0.127941 GB (0.119155 GiB)</li>
+          </ul>
+        </div>
+
+        <div class="key-insight">
+          <h4>What These Numbers Tell Us</h4>
+          <p>
+            The sign bits make up ~88.9% of the total stored size, and the FP16 scales make up ~11.1%. This maps almost
+            perfectly onto the 1 : 0.125 ratio from the bit calculation — the math checks out against the actual GGUF
+            file contents.
+          </p>
+        </div>
+      </section>
+
+      <section id="conclusion">
+        <h2>Ending Note</h2>
+        <p>
+          I'm really excited about this model. I really want to know how they trained it. What I know for sure is that
+          this training requires significant hard work in both the mathematical aspect as well as the engineering part.
+          This is really genius work.
+        </p>
+        <p>
+          A few things worth knowing: it was trained from scratch natively in 1-bit — not post-training quantization of
+          an existing model. The architecture blueprint is Qwen3 (not the weights — entirely fresh training).
+          Interestingly, the mathematical foundation comes from Babak Hassibi's work at Caltech — the same person who
+          co-invented the Optimal Brain Surgeon (OBS) in 1993, which is the theoretical ancestor of GPTQ. Training was
+          done on Google TPU v4.
+        </p>
+      </section>
+
+      <section id="summary">
+        <h2>Key Takeaways</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Aspect</th>
+                <th>BitNet b1.58</th>
+                <th>Bonsai-8B</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>States per weight</td>
+                <td>3 states {-1, 0, 1}</td>
+                <td>2 states {-1, 1}</td>
+              </tr>
+              <tr>
+                <td>Storage per weight</td>
+                <td>~1.58 bits</td>
+                <td>~1.125 bits</td>
+              </tr>
+              <tr>
+                <td>Scaling granularity</td>
+                <td>Layer-wise (1 scalar)</td>
+                <td>Group-wise (g=128)</td>
+              </tr>
+              <tr>
+                <td>Activation quantization</td>
+                <td>8-bit (b1.0/b1.58) / 4-bit (v2)</td>
+                <td>1-bit (all layers)</td>
+              </tr>
+              <tr>
+                <td>Unique values per layer (20K weights)</td>
+                <td>3</td>
+                <td>~312</td>
+              </tr>
+              <tr>
+                <td>Compression ratio (vs FP16)</td>
+                <td>~10x</td>
+                <td>14.2x</td>
+              </tr>
+              <tr>
+                <td>Compute style</td>
+                <td>XNOR + popcount (integer only)</td>
+                <td>Dequantize → FP16 matmul</td>
+              </tr>
+              <tr>
+                <td>Scale applied when?</td>
+                <td>After matmul (factored out)</td>
+                <td>Before matmul (dequantize step)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="references">
+        <h2>References</h2>
+        <ol class="ref-list">
+          <li id="ref-1">
+            Lee, W., &amp; Bruck, J. (2026). <strong>Data Gravity and the Energy Limits of Computation</strong>.
+            arXiv:2603.26053. <a href="https://arxiv.org/abs/2603.26053" target="_blank">[link]</a>
+          </li>
+          <li id="ref-2">
+            Prism ML. (2026). <strong>1-bit Bonsai 8B: End-to-End 1-bit Language Model Deployment Across Apple, GPU, and
+              Mobile Runtimes</strong>. <a href="https://prismml.com" target="_blank">[link]</a>
+          </li>
+          <li id="ref-3">
+            GitHub repository. <a href="https://github.com/PrismML-Eng/Bonsai-demo"
+              target="_blank">PrismML-Eng/Bonsai-demo</a>.
+          </li>
+          <li id="ref-4">
+            GitHub repository. <a href="https://github.com/ggml-org/llama.cpp" target="_blank">ggml-org/llama.cpp</a>.
+          </li>
+          <li id="ref-5">
+            Ma, S., et al. (2024). <strong>The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits</strong>.
+            arXiv:2402.17764. <a href="https://arxiv.org/abs/2402.17764" target="_blank">[link]</a>
+          </li>
+          <li id="ref-6">
+            Hassibi, B., Stork, D., &amp; Wolff, G. (1993). <strong>Optimal Brain Surgeon and General Network
+              Pruning</strong>. IEEE ICNN. — The mathematical ancestor of GPTQ and Bonsai's quantization framework.
+          </li>
+        </ol>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Vansh Nawander</p>
+    </div>
+  </footer>
+</body>
+
+</html>
