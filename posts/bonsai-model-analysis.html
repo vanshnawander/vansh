@@ -170,8 +170,8 @@
               </tr>
               <tr>
                 <td>Compute savings</td>
-                <td>✅ Memory + Compute</td>
-                <td>✅ Memory only</td>
+                <td>Memory + Compute</td>
+                <td>Memory only</td>
               </tr>
               <tr>
                 <td>Training</td>
@@ -258,27 +258,23 @@
           <div class="flow-title">Bonsai Inference: Weight → Output</div>
           <div class="flow-steps">
             <div class="flow-step">
-              <div class="flow-step-icon">💾</div>
               <div class="flow-step-label">Stored in GGUF</div>
               <div class="flow-step-desc">Packed 1-bit signs + 156 FP16 scales<br>(for every 20,000 weights in a layer)
               </div>
             </div>
             <div class="flow-arrow">▼</div>
             <div class="flow-step flow-step-action">
-              <div class="flow-step-icon">🔓</div>
               <div class="flow-step-label">Dequantize</div>
               <div class="flow-step-desc">Unpack bits → apply each group's FP16 scale<br>Result: FP16 weights like
                 {-0.847, +0.847, -0.312 …}</div>
             </div>
             <div class="flow-arrow">▼</div>
             <div class="flow-step flow-step-action">
-              <div class="flow-step-icon">⚙️</div>
               <div class="flow-step-label">FP16 Matmul</div>
               <div class="flow-step-desc">Standard floating-point multiply-accumulate<br>with FP16 activations</div>
             </div>
             <div class="flow-arrow">▼</div>
             <div class="flow-step flow-step-output">
-              <div class="flow-step-icon">✅</div>
               <div class="flow-step-label">Output</div>
               <div class="flow-step-desc">Layer output in FP16</div>
             </div>
@@ -291,27 +287,23 @@
           <div class="flow-title">BitNet Inference: Weight → Output (bitnet.cpp)</div>
           <div class="flow-steps">
             <div class="flow-step">
-              <div class="flow-step-icon">💾</div>
               <div class="flow-step-label">Stored</div>
               <div class="flow-step-desc">Packed bits + 1 FP16 weight scale + 1 FP16 activation scale</div>
             </div>
             <div class="flow-arrow">▼</div>
             <div class="flow-step flow-step-action">
-              <div class="flow-step-icon">🔢</div>
               <div class="flow-step-label">Integer Matmul Only</div>
               <div class="flow-step-desc">Weights stay as {-1, 0, +1} integers<br>Activations quantized to
                 INT8<br>Compute = XNOR + popcount — no float multiply at all</div>
             </div>
             <div class="flow-arrow">▼</div>
             <div class="flow-step flow-step-action">
-              <div class="flow-step-icon">✖️</div>
               <div class="flow-step-label">Apply Both Scales Once</div>
               <div class="flow-step-desc"><code>output = raw_output × α_w × α_x</code><br>Only 2 float multiplications
                 for the entire layer</div>
             </div>
             <div class="flow-arrow">▼</div>
             <div class="flow-step flow-step-output">
-              <div class="flow-step-icon">✅</div>
               <div class="flow-step-label">Output</div>
               <div class="flow-step-desc">Magnitude-restored layer output</div>
             </div>
@@ -342,8 +334,8 @@
               </div>
               <p class="scale-note">Same scale applied to every group → small weights get crushed</p>
               <div class="scale-stats">
-                <span class="scale-stat">🔢 3 unique values</span>
-                <span class="scale-stat">⚡ Integer compute</span>
+                <span class="scale-stat">3 unique values</span>
+                <span class="scale-stat">Integer compute</span>
               </div>
             </div>
           </div>
@@ -360,8 +352,8 @@
               </div>
               <p class="scale-note">Each group has its own scale → local variation preserved</p>
               <div class="scale-stats">
-                <span class="scale-stat">🔢 ~312 unique values</span>
-                <span class="scale-stat">⚡ FP16 compute</span>
+                <span class="scale-stat"> ~312 unique values</span>
+                <span class="scale-stat"> FP16 compute</span>
               </div>
             </div>
           </div>
