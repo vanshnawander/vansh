@@ -308,7 +308,7 @@
 
 .post.bonsai-model-analysis .flow-step {
   display: grid;
-  grid-template-columns: 2.2em 9em 1fr;
+  grid-template-columns: 9em 1fr;
   align-items: start;
   gap: 12px;
   background: #fff;
@@ -538,6 +538,7 @@
   border: 1px solid var(--border);
   padding: 8px 10px;
   text-align: left;
+  vertical-align: top;
 }
 
 .post.bonsai-model-analysis table th {
@@ -643,16 +644,15 @@
   }
 
   .post.bonsai-model-analysis .flow-step {
-    grid-template-columns: 2em 1fr;
-    grid-template-rows: auto auto;
+    grid-template-columns: 1fr;
   }
 
   .post.bonsai-model-analysis .flow-step-label {
-    grid-column: 2;
+    grid-column: 1;
   }
 
   .post.bonsai-model-analysis .flow-step-desc {
-    grid-column: 1 / -1;
+    grid-column: 1;
   }
 
   .post.bonsai-model-analysis .calc-row {
