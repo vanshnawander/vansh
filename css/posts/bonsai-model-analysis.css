@@ -1,0 +1,666 @@
+/* Per-post styles for bonsai-model-analysis.html */
+
+/* Scope styles to this article only */
+.post.bonsai-model-analysis {
+  line-height: 1.75;
+}
+
+/* Section sub-headings (h3 used as side/sub heading) */
+.post.bonsai-model-analysis .section-subheading {
+  font-size: 1.05em;
+  font-weight: 700;
+  color: var(--text, #222);
+  margin: 28px 0 6px;
+  padding-left: 12px;
+  border-left: 3px solid #9c27b0;
+  letter-spacing: 0.01em;
+}
+
+/* Text styling */
+.post.bonsai-model-analysis p {
+  margin: 8px 0;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* Technical concept cards */
+.post.bonsai-model-analysis .concept-card {
+  background: #f7f7f7;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 16px 0;
+}
+
+.post.bonsai-model-analysis .concept-card h3 {
+  color: #111;
+  margin: 0 0 12px 0;
+  font-size: 1.1em;
+  font-weight: 600;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 8px;
+}
+
+/* Training pipeline visualization */
+.post.bonsai-model-analysis .pipeline-step {
+  background: #f7f7f7;
+  border-left: 3px solid #bbb;
+  padding: 14px 18px;
+  margin: 14px 0;
+  border-radius: 0 6px 6px 0;
+}
+
+.post.bonsai-model-analysis .pipeline-step h4 {
+  color: #111;
+  margin: 0 0 6px 0;
+  font-weight: 600;
+}
+
+.post.bonsai-model-analysis .pipeline-step p {
+  margin: 0;
+  color: #444;
+}
+
+/* Quantization metrics */
+.post.bonsai-model-analysis .quant-metric {
+  background: #f7f7f7;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 20px 0;
+}
+
+.post.bonsai-model-analysis .quant-metric h4 {
+  color: #111;
+  margin: 0 0 10px 0;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Comparison tables styling */
+.post.bonsai-model-analysis .comparison-table {
+  background: color-mix(in oklab, var(--bg), white 2%);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  margin: 20px 0;
+}
+
+.post.bonsai-model-analysis .comparison-table h4 {
+  color: var(--link, #0066cc);
+  margin: 0 0 12px 0;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Technical terms */
+.post.bonsai-model-analysis .tech-term {
+  background: #f5f5f5;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+/* Important term */
+.post.bonsai-model-analysis .important-term {
+  background: #f5f5f5;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+/* Calculation box */
+.post.bonsai-model-analysis .calculation-box {
+  background: #f7f7f7;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin: 20px 0;
+}
+
+.post.bonsai-model-analysis .calc-label {
+  font-size: 0.75em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.post.bonsai-model-analysis .calc-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 5px 0;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.post.bonsai-model-analysis .calc-row:last-of-type {
+  border-bottom: none;
+}
+
+.post.bonsai-model-analysis .calc-item {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-weight: 700;
+  font-size: 1em;
+  color: #111;
+  min-width: 130px;
+}
+
+.post.bonsai-model-analysis .calc-sep {
+  color: #555;
+  font-weight: 600;
+}
+
+.post.bonsai-model-analysis .calc-desc {
+  color: #444;
+  font-size: 0.9em;
+}
+
+.post.bonsai-model-analysis .calc-result-row {
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 1px solid #ddd;
+}
+
+.post.bonsai-model-analysis .calc-result {
+  font-weight: 800;
+  font-size: 1.1em;
+  color: #111;
+}
+
+.post.bonsai-model-analysis .calculation-box code {
+  display: block;
+  margin-top: 14px;
+  padding: 10px 12px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 0.9em;
+  text-align: center;
+  color: #333;
+}
+
+/* Stats box */
+.post.bonsai-model-analysis .stats-box {
+  background: #f7f7f7;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin: 16px 0;
+}
+
+.post.bonsai-model-analysis .stats-box h3 {
+  color: #111;
+  margin: 0 0 14px 0;
+  font-size: 1.05em;
+  font-weight: 600;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 8px;
+}
+
+.post.bonsai-model-analysis .stats-box h4 {
+  color: #333;
+  margin: 0 0 10px 0;
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.post.bonsai-model-analysis .stats-box ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.post.bonsai-model-analysis .stats-box li {
+  margin: 6px 0;
+  color: #222;
+}
+
+/* Training cost cards */
+.post.bonsai-model-analysis .cost-breakdown {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 14px;
+  margin: 20px 0;
+}
+
+.post.bonsai-model-analysis .cost-card {
+  background: #f7f7f7;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+
+.post.bonsai-model-analysis .cost-card h4 {
+  color: #111;
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.post.bonsai-model-analysis .cost-card .cost-value {
+  font-size: 1.4em;
+  font-weight: 700;
+  color: #111;
+  margin: 8px 0;
+}
+
+.post.bonsai-model-analysis .cost-card .cost-label {
+  font-size: 0.9em;
+  color: #555;
+}
+
+/* Key insight boxes */
+.post.bonsai-model-analysis .key-insight {
+  background: #fafafa;
+  border-left: 3px solid #bbb;
+  border-radius: 0 6px 6px 0;
+  padding: 14px 18px;
+  margin: 18px 0;
+}
+
+.post.bonsai-model-analysis .key-insight h4 {
+  color: #111;
+  margin: 0 0 8px 0;
+  font-weight: 700;
+}
+
+.post.bonsai-model-analysis .key-insight h4::before {
+  content: none;
+}
+
+/* Flow diagram styles */
+.post.bonsai-model-analysis .flow-diagram {
+  background: #f7f7f7;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin: 20px 0;
+}
+
+.post.bonsai-model-analysis .flow-diagram-bitnet {
+  background: #f7f7f7;
+  border-color: #e0e0e0;
+}
+
+.post.bonsai-model-analysis .flow-title {
+  font-size: 0.75em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #555;
+  margin-bottom: 16px;
+}
+
+.post.bonsai-model-analysis .flow-diagram-bitnet .flow-title {
+  color: #555;
+}
+
+.post.bonsai-model-analysis .flow-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.post.bonsai-model-analysis .flow-step {
+  display: grid;
+  grid-template-columns: 9em 1fr;
+  align-items: start;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  padding: 10px 14px;
+}
+
+.post.bonsai-model-analysis .flow-diagram-bitnet .flow-step {
+  border-color: #e8e8e8;
+}
+
+.post.bonsai-model-analysis .flow-step-output {
+  background: #f5faf5;
+  border-color: #c8e6c9;
+}
+
+.post.bonsai-model-analysis .flow-step-action {
+  background: #fff;
+}
+
+.post.bonsai-model-analysis .flow-step-icon {
+  font-size: 1.2em;
+  line-height: 1.4;
+}
+
+.post.bonsai-model-analysis .flow-step-label {
+  font-weight: 700;
+  font-size: 0.88em;
+  color: #111;
+  padding-top: 2px;
+}
+
+.post.bonsai-model-analysis .flow-diagram-bitnet .flow-step-label {
+  color: #111;
+}
+
+.post.bonsai-model-analysis .flow-step-desc {
+  font-size: 0.85em;
+  color: #444;
+  line-height: 1.5;
+}
+
+.post.bonsai-model-analysis .flow-arrow {
+  text-align: center;
+  font-size: 1em;
+  color: #999;
+  margin: 3px 0;
+  padding-left: 10px;
+}
+
+.post.bonsai-model-analysis .flow-diagram-bitnet .flow-arrow {
+  color: #999;
+}
+
+/* Scale comparison grid */
+.post.bonsai-model-analysis .scale-comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 20px 0;
+}
+
+.post.bonsai-model-analysis .scale-card {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+}
+
+.post.bonsai-model-analysis .scale-card-bitnet {
+  border-color: #e0e0e0;
+}
+
+.post.bonsai-model-analysis .scale-card-bonsai {
+  border-color: #e0e0e0;
+}
+
+.post.bonsai-model-analysis .scale-card-header {
+  padding: 9px 14px;
+  font-size: 0.8em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.post.bonsai-model-analysis .scale-card-bitnet .scale-card-header {
+  background: #1b3a6b;
+  color: #fff;
+}
+
+.post.bonsai-model-analysis .scale-card-bonsai .scale-card-header {
+  background: #3b1a5c;
+  color: #fff;
+}
+
+.post.bonsai-model-analysis .scale-card-body {
+  padding: 14px;
+  background: #fafafa;
+}
+
+.post.bonsai-model-analysis .scale-viz {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.post.bonsai-model-analysis .scale-bar {
+  height: 5px;
+  border-radius: 3px;
+  background: #999;
+  opacity: 0.7;
+  width: 100% !important;
+}
+
+.post.bonsai-model-analysis .scale-viz-varied .scale-bar {
+  background: #555;
+  opacity: 0.8;
+  width: auto !important;
+}
+
+.post.bonsai-model-analysis .scale-note {
+  font-size: 0.82em;
+  color: #666;
+  margin: 0 0 10px;
+  font-style: italic;
+}
+
+.post.bonsai-model-analysis .scale-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.post.bonsai-model-analysis .scale-stat {
+  font-size: 0.78em;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 20px;
+  background: #efefef;
+  color: #333;
+}
+
+/* Warning boxes */
+.post.bonsai-model-analysis .warning-box {
+  background: #fafafa;
+  border-left: 3px solid #bbb;
+  padding: 14px 18px;
+  margin: 14px 0;
+  border-radius: 0 6px 6px 0;
+}
+
+.post.bonsai-model-analysis .warning-box h4 {
+  color: #111;
+  margin: 0 0 6px 0;
+  font-weight: 600;
+}
+
+.post.bonsai-model-analysis .warning-box h4::before {
+  content: "⚠️ ";
+}
+
+/* Section spacing */
+.post.bonsai-model-analysis section {
+  margin: 20px 0 24px;
+}
+
+/* Code and pre blocks */
+.post.bonsai-model-analysis code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  background: color-mix(in oklab, var(--bg), black 5%);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: var(--link, #0066cc);
+}
+
+.post.bonsai-model-analysis pre {
+  overflow: auto;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: color-mix(in oklab, var(--bg), black 3%);
+  margin: 16px 0;
+}
+
+.post.bonsai-model-analysis pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: 1em;
+  color: inherit;
+}
+
+/* Image and figure styling */
+.post.bonsai-model-analysis figure {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.post.bonsai-model-analysis img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.post.bonsai-model-analysis figcaption {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--text-muted, #666);
+  font-style: italic;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Table styling */
+.post.bonsai-model-analysis table { 
+  width: 100%; 
+  border-collapse: collapse; 
+  margin: 16px 0;
+}
+
+.post.bonsai-model-analysis table th,
+.post.bonsai-model-analysis table td {
+  border: 1px solid var(--border);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.post.bonsai-model-analysis table th {
+  background: color-mix(in oklab, var(--bg), black 5%);
+  font-weight: 600;
+}
+
+.post.bonsai-model-analysis .table-wrap { 
+  overflow-x: auto; 
+}
+
+/* Checklist styling */
+.post.bonsai-model-analysis .checklist {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+}
+
+.post.bonsai-model-analysis .checklist li {
+  padding: 8px 0 8px 24px;
+  position: relative;
+}
+
+.post.bonsai-model-analysis .checklist li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.post.bonsai-model-analysis .checklist li.no::before {
+  content: "✗";
+  color: #f44336;
+}
+
+/* Timeline styling */
+.post.bonsai-model-analysis .timeline {
+  border-left: 3px solid #9c27b0;
+  padding-left: 20px;
+  margin: 20px 0;
+}
+
+.post.bonsai-model-analysis .timeline-item {
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.post.bonsai-model-analysis .timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -26px;
+  top: 0;
+  width: 12px;
+  height: 12px;
+  background: #9c27b0;
+  border-radius: 50%;
+  border: 3px solid var(--bg);
+}
+
+.post.bonsai-model-analysis .timeline-year {
+  font-weight: 700;
+  color: #7b1fa2;
+  margin-bottom: 4px;
+}
+
+/* References styling */
+.post.bonsai-model-analysis .ref-list {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.post.bonsai-model-analysis .ref-list li {
+  margin: 12px 0;
+  line-height: 1.6;
+}
+
+.post.bonsai-model-analysis .ref-list a {
+  color: var(--link, #0066cc);
+  text-decoration: none;
+}
+
+.post.bonsai-model-analysis .ref-list a:hover {
+  text-decoration: underline;
+}
+
+/* Superscript citations */
+.post.bonsai-model-analysis sup {
+  font-size: 0.75em;
+  vertical-align: super;
+  color: var(--link, #0066cc);
+  font-weight: 600;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .post.bonsai-model-analysis .cost-breakdown {
+    grid-template-columns: 1fr;
+  }
+
+  .post.bonsai-model-analysis .scale-comparison-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .post.bonsai-model-analysis .flow-step {
+    grid-template-columns: 1fr;
+  }
+
+  .post.bonsai-model-analysis .flow-step-label {
+    grid-column: 1;
+  }
+
+  .post.bonsai-model-analysis .flow-step-desc {
+    grid-column: 1;
+  }
+
+  .post.bonsai-model-analysis .calc-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .post.bonsai-model-analysis .calc-item {
+    min-width: unset;
+  }
+}

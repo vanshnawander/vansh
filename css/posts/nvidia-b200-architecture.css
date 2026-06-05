@@ -1,0 +1,199 @@
+/* Per-post styles for nvidia-b200-architecture.html */
+
+/* Scope styles to this article only */
+.post.nvidia-b200 {
+  line-height: 1.75;
+}
+
+/* Text styling */
+.post.nvidia-b200 p {
+  margin: 8px 0;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* Architecture component cards */
+.post.nvidia-b200 .arch-component {
+  background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
+  border: 1px solid #81c784;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 16px 0;
+  box-shadow: 0 2px 8px rgba(46, 125, 50, 0.1);
+}
+
+.post.nvidia-b200 .arch-component h3 {
+  color: #2e7d32;
+  margin: 0 0 12px 0;
+  font-size: 1.2em;
+  font-weight: 600;
+  border-bottom: 2px solid #a5d6a7;
+  padding-bottom: 8px;
+}
+
+/* Performance metrics styling */
+.post.nvidia-b200 .performance-metric {
+  background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+  border-left: 4px solid #ff9800;
+  padding: 16px 20px;
+  margin: 16px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(255, 152, 0, 0.1);
+}
+
+.post.nvidia-b200 .performance-metric h4 {
+  color: #e65100;
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.post.nvidia-b200 .performance-metric p {
+  margin: 0;
+  color: #6d4c41;
+}
+
+/* Tech terms */
+.post.nvidia-b200 .tech-term {
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+  color: #1565c0;
+  border: 1px solid #64b5f6;
+}
+
+/* Architecture comparison table */
+.post.nvidia-b200 .arch-comparison {
+  background: color-mix(in oklab, var(--bg), white 2%);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  margin: 20px 0;
+}
+
+.post.nvidia-b200 .arch-comparison h4 {
+  color: var(--link, #0066cc);
+  margin: 0 0 12px 0;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Benchmark results styling */
+.post.nvidia-b200 .benchmark-result {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.post.nvidia-b200 .benchmark-card {
+  background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+  border: 1px solid #f48fb1;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+
+.post.nvidia-b200 .benchmark-card h4 {
+  color: #c2185b;
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.post.nvidia-b200 .benchmark-card .metric-value {
+  font-size: 1.4em;
+  font-weight: 700;
+  color: #880e4f;
+  margin: 8px 0;
+}
+
+.post.nvidia-b200 .benchmark-card .metric-label {
+  font-size: 0.9em;
+  color: #6d1b6b;
+}
+
+/* Section spacing */
+.post.nvidia-b200 section {
+  margin: 20px 0 24px;
+}
+
+/* Code and pre blocks */
+.post.nvidia-b200 code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  background: color-mix(in oklab, var(--bg), black 5%);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: var(--link, #0066cc);
+}
+
+.post.nvidia-b200 pre {
+  overflow: auto;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: color-mix(in oklab, var(--bg), black 3%);
+  margin: 16px 0;
+}
+
+.post.nvidia-b200 pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: 1em;
+  color: inherit;
+}
+
+/* Image and figure styling */
+.post.nvidia-b200 figure {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.post.nvidia-b200 img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.post.nvidia-b200 figcaption {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--text-muted, #666);
+  font-style: italic;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Table styling */
+.post.nvidia-b200 table { 
+  width: 100%; 
+  border-collapse: collapse; 
+  margin: 16px 0;
+}
+
+.post.nvidia-b200 table th,
+.post.nvidia-b200 table td {
+  border: 1px solid var(--border);
+  padding: 8px 10px;
+  text-align: left;
+}
+
+.post.nvidia-b200 table th {
+  background: color-mix(in oklab, var(--bg), black 5%);
+  font-weight: 600;
+}
+
+.post.nvidia-b200 .table-wrap { 
+  overflow-x: auto; 
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .post.nvidia-b200 .benchmark-result {
+    grid-template-columns: 1fr;
+  }
+}

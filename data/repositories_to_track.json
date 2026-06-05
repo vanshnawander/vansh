@@ -1,0 +1,23 @@
+[
+    {
+        "name": "Mooncake",
+        "link": "https://github.com/kvcache-ai/Mooncake",
+        "description": "A KVCache-centric Disaggregated Architecture for LLM Serving"
+
+    },
+    {
+        "name": "TorchSpec",
+        "link": "https://github.com/torchspec-project/TorchSpec",
+        "description": "TorchSpec is a torch-native speculative decoding training framework"
+    },
+    {
+        "name": "xFormers",
+        "link": "https://github.com/facebookresearch/xformers",
+        "description": "xFormers - Toolbox to Accelerate Research on Transformers"
+    },
+    {
+        "name": "FlashAttention",
+        "link": "https://github.com/Dao-AILab/flash-attention",
+        "description": "FlashAttention - Fast and Memory-Efficient Exact Attention"
+    }
+]
