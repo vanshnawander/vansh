@@ -1,5 +1,21 @@
 [
   {
+    "title": "Grouped GEMM",
+    "author": "Meta PyTorch",
+    "notes": "",
+    "link": "https://deepwiki.com/meta-pytorch/tritonbench/5.2.3-grouped-gemm",
+    "status": "to_read",
+    "dateAdded": "2026-03-31"
+  },
+  {
+    "title": "Worklog: Optimising GEMM on NVIDIA H100 for cuBLAS-like performance (WIP)",
+    "author": "Hamza Elshafie",
+    "status": "to_read",
+    "link": "https://hamzaelshafie.bearblog.dev/worklog-optimising-gemm-on-nvidia-h100-for-cublas-like-performance-wip/",
+    "notes": "",
+    "dateAdded": "2026-03-31"
+  },
+  {
     "title": "Build an LLM from scratch in MAX",
     "author": "Modular",
     "status": "to_read",

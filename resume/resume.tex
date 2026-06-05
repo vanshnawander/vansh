@@ -1,0 +1,128 @@
+\documentclass[letterpaper,10pt]{article}
+
+\usepackage[left=0.5in,top=0.5in,right=0.5in,bottom=0.5in]{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{array}
+\usepackage{fontenc}
+\usepackage[utf8]{inputenc}
+
+\hypersetup{colorlinks=false}
+
+% Remove page numbers
+\pagestyle{empty}
+
+% Section formatting
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titlespacing{\section}{0pt}{6pt}{4pt}
+
+% No paragraph indent
+\setlength{\parindent}{0pt}
+
+% Tight lists
+\setlist[itemize]{noitemsep, topsep=2pt, parsep=0pt, leftmargin=1.2em}
+
+\begin{document}
+
+%--- HEADER ------------------------------------------------------------------
+\begin{center}
+  {\LARGE \textbf{Vansh Nawander}} \\[4pt]
+  \href{mailto:vansh.nawander@research.iiit.ac.in}{vansh.nawander@research.iiit.ac.in} \;$|$\;
+  \href{https://www.linkedin.com/in/vanshnawander/}{LinkedIn} \;$|$\;
+  \href{https://github.com/vanshnawander}{GitHub} \;$|$\;
+  \href{https://vanshnawander.github.io/vansh/index.html}{Website} \;$|$\;
+  +91-8125544202
+\end{center}
+
+%--- EDUCATION ---------------------------------------------------------------
+\section{Education}
+
+\textbf{International Institute of Information Technology, Hyderabad (IIIT-H)} \hfill Hyderabad, India \\
+\textit{M.S. by Research, Computer Science} \hfill 2025 -- Present \\
+Advisor: Dr.\ Manish Shrivastava (LTRC) \quad $|$ \quad Focus: Diffusion Models, Quantization, LLM Inference Systems
+
+\medskip
+\textbf{Vardhaman College of Engineering} \hfill Hyderabad, India \\
+\textit{B.Tech, Computer Science and Engineering} \hfill 2020 -- 2024
+
+%--- RESEARCH INTERESTS ------------------------------------------------------
+\section{Research Interests}
+
+GPU architectures \& kernel optimization \textbullet{} LLM inference \& training systems \textbullet{}
+Model quantization \textbullet{} Deep learning \textbullet{} Diffusion models \textbullet{} World models
+
+%--- EXPERIENCE --------------------------------------------------------------
+\section{Experience}
+
+\textbf{AI/ML Consultant -- Alonzo AI} \hfill April 2025 -- March 2026
+\begin{itemize}
+  \item Fine-tuned and deployed production ASR and TTS systems for speech applications.
+  \item Built an end-to-end agentic speech system integrating speech recognition, language understanding, and speech synthesis into a unified pipeline.
+  \item Handled backend engineering and NLP-based search infrastructure.
+\end{itemize}
+
+\textbf{AI/ML Engineer -- Datazoic} \hfill Oct 2024 -- Jun 2025
+\begin{itemize}
+  \item Fine-tuned large language models on A100 GPU servers and deployed them to production.
+  \item Built RAG-based question answering systems for retrieval over thousands of documents.
+  \item Engineered AI agents with LangGraph for a CRM platform, enabling automated actions and improved UX.
+\end{itemize}
+
+
+%--- PROJECTS ----------------------------------------------------------------
+\section{Projects}
+
+\textbf{FlashInfer Kernel Contest @ MLSys 2026} \hfill
+\href{https://github.com/vanshnawander/flashinfer-mlsys}{\texttt{[GitHub]}}
+\begin{itemize}
+  \item Competing in the FlashInfer AI Kernel Generation Contest at MLSys 2026, writing high-performance GPU kernels (fused MoE) for NVIDIA Blackwell (B200) GPUs.
+  \item Implemented kernels in Triton and CUDA; benchmarked on B200 hardware via Modal cloud infrastructure. Produced a technical report analysing kernel performance against the FlashInfer-Bench evaluation suite.
+\end{itemize}
+
+\textbf{CUDA \& GPU Kernel Sessions} \hfill
+\href{https://github.com/vanshnawander/cuda-sessions}{\texttt{[GitHub]}}
+\begin{itemize}
+  \item Implemented GPU kernels from scratch: tiled matrix multiplication, memory-optimised CUDA kernels, and Triton kernels; includes Mojo GPU puzzle solutions and GPUMode practice exercises.
+  \item Stack: C++, CUDA, Triton, Mojo, Python.
+\end{itemize}
+
+\textbf{Language Model from Scratch}
+\begin{itemize}
+  \item Built a transformer-based language model from scratch in PyTorch, implementing multi-head attention, positional encoding, and the full training pipeline.
+  \item Covered tokenisation, pretraining objectives, and scaling considerations; used as a deep-dive into LLM internals and architecture design.
+\end{itemize}
+
+
+%--- PUBLICATIONS ------------------------------------------------------------
+\section{Publications}
+
+\begin{itemize}
+  \item V.\ Nawander et al., ``Span Identification and Summarization,''
+        \textit{Workshop Proceedings, NAACL 2025}.
+        \href{https://aclanthology.org/2025.cl4health-1.33.pdf}{[Link]}
+
+\end{itemize}
+
+%--- SKILLS ------------------------------------------------------------------
+\section{Skills}
+
+\begin{tabular}{@{} >{\bfseries}l @{\hspace{3ex}} l}
+Systems \& GPU  & CUDA, Triton, C, C++, GPU kernel optimisation \\
+ML \& DL        & PyTorch, JAX, vLLM, HuggingFace, Scikit-learn, NumPy, Pandas \\
+LLM / AI        & LangChain, LangGraph, DSPy, ADK, RAG, fine-tuning (A100) \\
+Languages       & Python, C++, C, JavaScript \\
+Web / Backend   & FastAPI, Flask, React.js, Node.js, Express.js \\
+Infra / DB      & Linux, Redis, Celery, AWS, MySQL, PostgreSQL, MongoDB \\
+\end{tabular}
+
+%--- ACHIEVEMENTS ------------------------------------------------------------
+\section{Achievements \& Leadership}
+
+\begin{itemize}
+  \item \textbf{Smart India Hackathon 2023 -- National Winner:} Won the national-level competition for problem statement \#1384 by the Ministry of Commerce and Industry.
+  \item \textbf{IndoML Datathon (NIQ Sponsored):} Won 1st and 5th prizes at the IndoML conference datathon challenge.
+  \item \textbf{Microsoft ImagineCup 2024:} Qualified for the first round.
+\end{itemize}
+
+\end{document}
