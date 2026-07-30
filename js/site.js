@@ -227,11 +227,74 @@ function changePage(listId, newPage) {
 window.changePage = changePage;
 window.selectFilter = selectFilter;
 
+// Load a preview of currently-reading items for the homepage
+async function loadReadingPreview() {
+  const previewList = document.getElementById('reading-preview-list');
+  if (!previewList) return;
+
+  const files = [
+    'diffusion-reading.json',
+    'deep-learning-reading.json',
+    'attention-reading.json',
+    'parallel-computing-reading.json',
+    'paper-reading.json',
+    'ocr-reading.json',
+    'speech-reading.json',
+    'speculative-decoding-reading.json',
+    'architecture-reading.json',
+    'reading.json'
+  ];
+
+  const currentlyReading = [];
+
+  for (const file of files) {
+    try {
+      const res = await fetch(`data/${file}`, { cache: 'no-store' });
+      if (!res.ok) continue;
+      const items = await res.json();
+      for (const it of items) {
+        if (it.status === 'reading') currentlyReading.push(it);
+      }
+    } catch (e) { /* skip */ }
+  }
+
+  if (currentlyReading.length === 0) {
+    previewList.innerHTML = '<li class="muted">Nothing in progress right now.</li>';
+    return;
+  }
+
+  // Sort by dateAdded desc
+  currentlyReading.sort((a, b) => (a.dateAdded < b.dateAdded ? 1 : -1));
+
+  // Show up to 5
+  const preview = currentlyReading.slice(0, 5);
+
+  previewList.innerHTML = '';
+  for (const it of preview) {
+    const li = document.createElement('li');
+    li.className = 'reading-item';
+    const link = it.link ? `<a href="${it.link}" target="_blank" rel="noopener">${it.title}</a>` : it.title;
+    const meta = [it.author, new Date(it.dateAdded).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: '2-digit' })]
+      .filter(Boolean).join(' • ');
+    li.innerHTML = `
+      <div class="reading-item-body">
+        <div class="reading-item-title">${link}</div>
+        <div class="reading-item-meta">${meta}</div>
+      </div>
+      <div class="reading-item-badges">
+        <span class="badge status-reading">Reading</span>
+      </div>
+    `;
+    previewList.appendChild(li);
+  }
+}
+
 // Run after DOM is ready
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => { initNavToggle(); loadPosts(); loadReading(); });
+  document.addEventListener('DOMContentLoaded', () => { initNavToggle(); loadPosts(); loadReading(); loadReadingPreview(); });
 } else {
   initNavToggle();
   loadPosts();
   loadReading();
+  loadReadingPreview();
 }

@@ -135,6 +135,21 @@ main.container { padding: 20px 16px; flex: 1; }
 .muted { color: var(--muted); font-size: 0.95em; }
 .post h1 { margin-bottom: 0; }
 
+/* Reading preview on homepage */
+.reading-preview { margin-top: 28px; }
+.reading-preview h2 { font-size: 1.35rem; margin: 18px 0 8px; }
+.reading-preview .list {
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+.reading-preview .reading-item:last-child { border-bottom: none; }
+.reading-preview-link { margin-top: 12px; }
+.reading-preview-link a { color: var(--link); text-decoration: none; font-weight: 600; }
+.reading-preview-link a:hover { text-decoration: underline; }
+
 /* Blog list items */
 .post-item { 
   display: block;
