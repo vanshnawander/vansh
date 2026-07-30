@@ -1,0 +1,20 @@
+[
+  {
+    "title": "LLaMA: Open and Efficient Foundation Language Models",
+    "author": "Hugo Touvron et al. (Meta)",
+    "status": "to_read",
+    "link": "https://arxiv.org/abs/2302.13971",
+    "notes": "Details the standard architectural components and choices for Modern LLMs.",
+    "dateAdded": "2026-07-10",
+    "tag": "VIP"
+  },
+  {
+    "title": "Mixture-of-Experts with Exponentially Fewer Active Parameters",
+    "author": "William Fedus, Barret Zoph, Noam Shazeer",
+    "status": "to_read",
+    "link": "https://arxiv.org/abs/2101.03961",
+    "notes": "The Switch Transformer paper details sparse routing and MoE architectures.",
+    "dateAdded": "2026-07-10",
+    "tag": "GOOD"
+  }
+]

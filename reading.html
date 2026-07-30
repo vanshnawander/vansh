@@ -18,6 +18,9 @@
           <a class="nav-link active" href="reading.html">Reading</a>
           <a class="nav-link" href="contact.html">Contact</a>
         </nav>
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </header>
 
@@ -25,33 +28,117 @@
       <h1>My Reading List</h1>
       <p class="muted">A personal list to track what I'm reading, planning to read, and finished.</p>
 
-      <details id="parallel-computing-section" class="collapsible" open>
-        <summary>Parallel Computing Reading List</summary>
-        <ul id="parallel-computing-list" class="list">
-          <li class="muted">Loading parallel computing reading list…</li>
-        </ul>
-      </details>
+      <div id="tag-filter-bar" class="filter-bar"></div>
 
-      <details id="paper-reading-section" class="collapsible">
-        <summary>Paper Reading List</summary>
-        <ul id="paper-reading-list" class="list">
-          <li class="muted">Loading paper reading list…</li>
+      <div id="diffusion-section" class="collapsible open">
+        <div class="collapsible-header" onclick="this.parentElement.classList.toggle('open')">Diffusion Reading List</div>
+        <div class="collapsible-content">
+          <div class="collapsible-inner">
+        <ul id="diffusion-list" class="list">
+          <li class="muted">Loading diffusion reading list…</li>
         </ul>
-      </details>
+      </div>
+        </div>
+      </div>
 
-      <details id="deep-learning-section" class="collapsible" open>
-        <summary>Deep Learning Reading List</summary>
+      <div id="deep-learning-section" class="collapsible open">
+        <div class="collapsible-header" onclick="this.parentElement.classList.toggle('open')">Deep Learning Reading List</div>
+        <div class="collapsible-content">
+          <div class="collapsible-inner">
         <ul id="deep-learning-list" class="list">
           <li class="muted">Loading deep learning reading list…</li>
         </ul>
-      </details>
+      </div>
+        </div>
+      </div>
 
-      <details id="miscellaneous-section" class="collapsible">
-        <summary>Miscellaneous Reading List</summary>
+      <div id="attention-section" class="collapsible open">
+        <div class="collapsible-header" onclick="this.parentElement.classList.toggle('open')">Attention Mechanism Reading List</div>
+        <div class="collapsible-content">
+          <div class="collapsible-inner">
+        <ul id="attention-list" class="list">
+          <li class="muted">Loading attention mechanism reading list…</li>
+        </ul>
+      </div>
+        </div>
+      </div>
+
+      <div id="parallel-computing-section" class="collapsible open">
+        <div class="collapsible-header" onclick="this.parentElement.classList.toggle('open')">Parallel Computing Reading List</div>
+        <div class="collapsible-content">
+          <div class="collapsible-inner">
+        <ul id="parallel-computing-list" class="list">
+          <li class="muted">Loading parallel computing reading list…</li>
+        </ul>
+      </div>
+        </div>
+      </div>
+
+      <div id="paper-reading-section" class="collapsible open">
+        <div class="collapsible-header" onclick="this.parentElement.classList.toggle('open')">Paper Reading List</div>
+        <div class="collapsible-content">
+          <div class="collapsible-inner">
+        <ul id="paper-reading-list" class="list">
+          <li class="muted">Loading paper reading list…</li>
+        </ul>
+      </div>
+        </div>
+      </div>
+
+      <div id="ocr-section" class="collapsible open">
+        <div class="collapsible-header" onclick="this.parentElement.classList.toggle('open')">OCR Reading List</div>
+        <div class="collapsible-content">
+          <div class="collapsible-inner">
+        <ul id="ocr-list" class="list">
+          <li class="muted">Loading OCR reading list…</li>
+        </ul>
+      </div>
+        </div>
+      </div>
+
+      <div id="speech-section" class="collapsible open">
+        <div class="collapsible-header" onclick="this.parentElement.classList.toggle('open')">Speech Reading List</div>
+        <div class="collapsible-content">
+          <div class="collapsible-inner">
+        <ul id="speech-list" class="list">
+          <li class="muted">Loading speech reading list…</li>
+        </ul>
+      </div>
+        </div>
+      </div>
+
+      <div id="speculative-decoding-section" class="collapsible open">
+        <div class="collapsible-header" onclick="this.parentElement.classList.toggle('open')">Speculative Decoding Reading List</div>
+        <div class="collapsible-content">
+          <div class="collapsible-inner">
+        <ul id="speculative-decoding-list" class="list">
+          <li class="muted">Loading speculative decoding reading list…</li>
+        </ul>
+      </div>
+        </div>
+      </div>
+
+      <div id="architecture-section" class="collapsible open">
+        <div class="collapsible-header" onclick="this.parentElement.classList.toggle('open')">Architecture and Internal Components Reading List</div>
+        <div class="collapsible-content">
+          <div class="collapsible-inner">
+        <ul id="architecture-list" class="list">
+          <li class="muted">Loading architecture and internal components reading list…</li>
+        </ul>
+      </div>
+        </div>
+      </div>
+
+      <div id="miscellaneous-section" class="collapsible open">
+        <div class="collapsible-header" onclick="this.parentElement.classList.toggle('open')">Miscellaneous Reading List</div>
+        <div class="collapsible-content">
+          <div class="collapsible-inner">
         <ul id="miscellaneous-list" class="list">
           <li class="muted">Loading miscellaneous reading list…</li>
         </ul>
-      </details>
+      </div>
+        </div>
+      </div>
     </main>
 
     <footer class="site-footer">
