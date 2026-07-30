@@ -1,0 +1,20 @@
+[
+  {
+    "title": "An Overview of the Tesseract OCR Engine",
+    "author": "Ray Smith",
+    "status": "to_read",
+    "link": "https://ieeexplore.ieee.org/document/4376991",
+    "notes": "Classic paper on the architecture and algorithms behind Tesseract OCR.",
+    "dateAdded": "2026-07-10",
+    "tag": "VIP"
+  },
+  {
+    "title": "PP-OCR: An Practical Ultra-Lightweight OCR System",
+    "author": "Yuning Du et al.",
+    "status": "to_read",
+    "link": "https://arxiv.org/abs/2009.09941",
+    "notes": "A widely used practical, lightweight OCR pipeline.",
+    "dateAdded": "2026-07-10",
+    "tag": "GOOD"
+  }
+]

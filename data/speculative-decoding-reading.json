@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Fast Inference from Transformers via Speculative Decoding",
+    "author": "Yaniv Leviathan, Matan Kalman, Yossi Matias",
+    "status": "to_read",
+    "link": "https://arxiv.org/abs/2211.17192",
+    "notes": "Introduces speculative decoding for accelerating transformer inference.",
+    "dateAdded": "2026-07-10",
+    "tag": "VVIP"
+  },
+  {
+    "title": "Accelerating Large Language Model Decoding with Speculative Decoding",
+    "author": "Charlie Chen et al.",
+    "status": "to_read",
+    "link": "https://arxiv.org/abs/2302.01318",
+    "notes": "Co-occurring paper proposing a similar speculative decoding method.",
+    "dateAdded": "2026-07-10",
+    "tag": "VIP"
+  }
+]

@@ -5,7 +5,8 @@
     "notes": "",
     "link": "https://deepwiki.com/meta-pytorch/tritonbench/5.2.3-grouped-gemm",
     "status": "to_read",
-    "dateAdded": "2026-03-31"
+    "dateAdded": "2026-03-31",
+    "tag": "VVVIP"
   },
   {
     "title": "Worklog: Optimising GEMM on NVIDIA H100 for cuBLAS-like performance (WIP)",
@@ -13,7 +14,8 @@
     "status": "to_read",
     "link": "https://hamzaelshafie.bearblog.dev/worklog-optimising-gemm-on-nvidia-h100-for-cublas-like-performance-wip/",
     "notes": "",
-    "dateAdded": "2026-03-31"
+    "dateAdded": "2026-03-31",
+    "tag": "VVIP"
   },
   {
     "title": "Build an LLM from scratch in MAX",
@@ -21,13 +23,17 @@
     "status": "to_read",
     "link": "https://llm.modular.com/",
     "notes": "",
-    "dateAdded": "2026-02-02"
+    "dateAdded": "2026-02-02",
+    "tag": "GOOD"
+  },
+  {
     "title": "Hopper TMA Unit",
     "author": "PyTorch",
     "status": "to_read",
     "link": "https://pytorch.org/blog/hopper-tma-unit/",
     "notes": "",
-    "dateAdded": "2026-03-23"
+    "dateAdded": "2026-03-23",
+    "tag": "VIP"
   },
   {
     "title": "CUDA-L2: Surpassing cuBLAS Performance for Matrix Multiplication through Reinforcement Learning",
@@ -35,7 +41,8 @@
     "status": "to_read",
     "link": "https://arxiv.org/pdf/2512.02551v1",
     "notes": "",
-    "dateAdded": "2026-03-11"
+    "dateAdded": "2026-03-11",
+    "tag": "VIP"
   },
   {
     "title": "Accelerating MoEs with a Triton Persistent Cache-Aware Grouped GEMM Kernel",
@@ -43,7 +50,8 @@
     "status": "to_read",
     "link": "https://pytorch.org/blog/accelerating-moes-with-a-triton-persistent-cache-aware-grouped-gemm-kernel/",
     "notes": "MOE, MLSYS",
-    "dateAdded": "2026-03-08"
+    "dateAdded": "2026-03-08",
+    "tag": "VVIP"
   },
   {
     "title": "Outperforming cuBLAS on H100: A Worklog",
@@ -51,7 +59,8 @@
     "status": "to_read",
     "link": "https://cudaforfun.substack.com/p/outperforming-cublas-on-h100-a-worklog",
     "notes": "",
-    "dateAdded": "2025-10-26"
+    "dateAdded": "2025-10-26",
+    "tag": "GOOD"
   },
   {
     "title": "Matrix multiplication on Blackwell part 1 - Introduction",
@@ -90,8 +99,9 @@
     "author": "Stephen Jones",
     "status": "to_read",
     "link": "https://www.nvidia.com/en-us/on-demand/session/gtcfall22-a41101/",
-    "notes": "",  
-    "dateAdded": "2025-10-06"
+    "notes": "",
+    "dateAdded": "2025-10-06",
+    "tag": "GOOD"
   },
   {
     "title": "Cuda basics",
@@ -131,7 +141,8 @@
     "status": "to_read",
     "link": "https://modal.com/blog/reverse-engineer-flash-attention-4",
     "notes": "",
-    "dateAdded": "2025-09-29"
+    "dateAdded": "2025-09-29",
+    "tag": "VVVIP"
   },
   {
     "title": "A history of NVidia Stream Multiprocessor",
