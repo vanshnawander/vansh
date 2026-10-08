@@ -50,19 +50,25 @@ Advisor: Dr.\ Manish Shrivastava (LTRC) \quad $|$ \quad Focus: Diffusion Models,
 \section{Research Interests}
 
 GPU architectures \& kernel optimization \textbullet{} LLM inference \& training systems \textbullet{}
-Model quantization \textbullet{} Deep learning \textbullet{} Diffusion models \textbullet{} World models
+Model quantization \textbullet{} Deep learning \textbullet{} Diffusion models \textbullet{} Autonomous agents \textbullet{} Speech processing \textbullet{} Computer vision \textbullet{} Multimodal Learning
 
 %--- EXPERIENCE --------------------------------------------------------------
 \section{Experience}
 
-\textbf{AI/ML Consultant -- Alonzo AI} \hfill April 2025 -- March 2026
+\textbf{ CUDA Kernel Expert (Part Time) - Mercor} \hfill July 2026 - Sept 2026
+\begin{itemize}
+  \item Converted pytorch Kernels to optimized cuda kernels with 1.2x - 15x speedup ratios compared to pytorch.
+  \item Evaluated the ability of agentic system to assist in CUDA kernel writing and helped improve them
+\end{itemize}
+
+\textbf{AI/ML Consultant - Alonzo AI} \hfill April 2025 -- March 2026
 \begin{itemize}
   \item Fine-tuned and deployed production ASR and TTS systems for speech applications.
   \item Built an end-to-end agentic speech system integrating speech recognition, language understanding, and speech synthesis into a unified pipeline.
   \item Handled backend engineering and NLP-based search infrastructure.
 \end{itemize}
 
-\textbf{AI/ML Engineer -- Datazoic} \hfill Oct 2024 -- Jun 2025
+\textbf{AI/ML Engineer - Datazoic} \hfill Oct 2024 -- Jun 2025
 \begin{itemize}
   \item Fine-tuned large language models on A100 GPU servers and deployed them to production.
   \item Built RAG-based question answering systems for retrieval over thousands of documents.
@@ -70,8 +76,7 @@ Model quantization \textbullet{} Deep learning \textbullet{} Diffusion models \t
 \end{itemize}
 
 
-%--- PROJECTS ----------------------------------------------------------------
-\section{Projects}
+\section{Research Projects}
 
 \textbf{FlashInfer Kernel Contest @ MLSys 2026} \hfill
 \href{https://github.com/vanshnawander/flashinfer-mlsys}{\texttt{[GitHub]}}
@@ -80,11 +85,12 @@ Model quantization \textbullet{} Deep learning \textbullet{} Diffusion models \t
   \item Implemented kernels in Triton and CUDA; benchmarked on B200 hardware via Modal cloud infrastructure. Produced a technical report analysing kernel performance against the FlashInfer-Bench evaluation suite.
 \end{itemize}
 
-\textbf{CUDA \& GPU Kernel Sessions} \hfill
-\href{https://github.com/vanshnawander/cuda-sessions}{\texttt{[GitHub]}}
+\textbf{Autonomous Research Agent} \hfill
+\href{https://github.com/vanshnawander/autonomus-agent}{\texttt{[GitHub]}}
 \begin{itemize}
-  \item Implemented GPU kernels from scratch: tiled matrix multiplication, memory-optimised CUDA kernels, and Triton kernels; includes Mojo GPU puzzle solutions and GPUMode practice exercises.
-  \item Stack: C++, CUDA, Triton, Mojo, Python.
+  \item Built an autonomous research agent capable of performing literature review, code generation, and experimental design for AI research.
+  \item These agents can work with slurm clusters, manage experiments, and generate reports, significantly accelerating the research process. 
+  \item Uses devin for cli based workflows and can be configured to use opencode and other open-source cli tools for work.
 \end{itemize}
 
 \textbf{Language Model from Scratch}
@@ -108,19 +114,31 @@ Model quantization \textbullet{} Deep learning \textbullet{} Diffusion models \t
 \section{Skills}
 
 \begin{tabular}{@{} >{\bfseries}l @{\hspace{3ex}} l}
-Systems \& GPU  & CUDA, Triton, C, C++, GPU kernel optimisation \\
+Systems \& GPU  & CUDA, Triton, C, C++, GPU kernel optimization \\
 ML \& DL        & PyTorch, JAX, vLLM, HuggingFace, Scikit-learn, NumPy, Pandas \\
-LLM / AI        & LangChain, LangGraph, DSPy, ADK, RAG, fine-tuning (A100) \\
+LLM / AI        & LangChain, LangGraph, transformers , RAG, Devin, Cursor, Antigravity, codex \\
 Languages       & Python, C++, C, JavaScript \\
 Web / Backend   & FastAPI, Flask, React.js, Node.js, Express.js \\
 Infra / DB      & Linux, Redis, Celery, AWS, MySQL, PostgreSQL, MongoDB \\
+\end{tabular}
+
+%--- COURSE WORK -------------------------------------------------------------
+\section{Course Work}
+
+\begin{tabular}{@{} >{\raggedright\arraybackslash}p{0.48\linewidth} @{} >{\raggedright\arraybackslash}p{0.48\linewidth} @{}}
+\textbullet{} Language Models and Agents [\texttt{CL3.410}] &
+\textbullet{} Advanced NLP [\texttt{CS7.501}] \\
+\textbullet{} Information Retrieval and Extraction [\texttt{CS4.406}] &
+\textbullet{} Compilers [\texttt{CS1.403}] \\
+\textbullet{} Teaching Assistant, Information Retrieval and Extraction [\texttt{CS4.406}] &
 \end{tabular}
 
 %--- ACHIEVEMENTS ------------------------------------------------------------
 \section{Achievements \& Leadership}
 
 \begin{itemize}
-  \item \textbf{Smart India Hackathon 2023 -- National Winner:} Won the national-level competition for problem statement \#1384 by the Ministry of Commerce and Industry.
+  \item \textbf{Smart India Hackathon 2023 - National Winner:} Won the national-level competition for problem statement \#1384 by the Ministry of Commerce and Industry.
+  \item \textbf{Accurate Bacground Hackathon 2025 : First runner up} We were the first runner up globally next only to the internal team of accurate in the Accurate Background Hackathon 2025, organized by Accurate Background.
   \item \textbf{IndoML Datathon (NIQ Sponsored):} Won 1st and 5th prizes at the IndoML conference datathon challenge.
   \item \textbf{Microsoft ImagineCup 2024:} Qualified for the first round.
 \end{itemize}

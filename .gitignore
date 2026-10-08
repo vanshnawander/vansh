@@ -1,2 +1,5 @@
 *.md
 *.ipynb
+*.aux 
+*.log 
+*.out
