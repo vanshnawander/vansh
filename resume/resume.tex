@@ -1,27 +1,37 @@
 \documentclass[letterpaper,10pt]{article}
 
 \usepackage[left=0.5in,top=0.5in,right=0.5in,bottom=0.5in]{geometry}
-\usepackage{hyperref}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{xcolor}
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{array}
-\usepackage{fontenc}
-\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
 
-\hypersetup{colorlinks=false}
+% Coloured link text instead of boxes around links
+\definecolor{linkblue}{HTML}{1A3F8B}
+\hypersetup{colorlinks=true, urlcolor=linkblue, linkcolor=linkblue}
 
 % Remove page numbers
 \pagestyle{empty}
 
 % Section formatting
 \titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
-\titlespacing{\section}{0pt}{6pt}{4pt}
+\titlespacing{\section}{0pt}{8pt}{4pt}
 
 % No paragraph indent
 \setlength{\parindent}{0pt}
 
 % Tight lists
-\setlist[itemize]{noitemsep, topsep=2pt, parsep=0pt, leftmargin=1.2em}
+\setlist[itemize]{noitemsep, topsep=3pt, parsep=0pt, leftmargin=1.2em}
+
+% Inline separator for bullet-separated lists
+\newcommand{\sep}{\;\textbullet\;}
+
+% Small gap between entries within a section
+\newcommand{\entrygap}{\vspace{4pt}}
 
 \begin{document}
 
@@ -40,7 +50,8 @@
 
 \textbf{International Institute of Information Technology, Hyderabad (IIIT-H)} \hfill Hyderabad, India \\
 \textit{M.S. by Research, Computer Science} \hfill 2025 -- Present \\
-Advisor: Dr.\ Manish Shrivastava (LTRC) \quad $|$ \quad Focus: Diffusion Models, Quantization, LLM Inference Systems
+Advisor: Dr.\ Manish Shrivastava (LTRC) \;$|$\; Focus: Diffusion Models, Quantization, LLM Inference Systems \\
+Coursework: Language Models and Agents, Advanced NLP, Information Retrieval and Extraction (also TA), Compilers
 
 \medskip
 \textbf{Vardhaman College of Engineering} \hfill Hyderabad, India \\
@@ -49,98 +60,82 @@ Advisor: Dr.\ Manish Shrivastava (LTRC) \quad $|$ \quad Focus: Diffusion Models,
 %--- RESEARCH INTERESTS ------------------------------------------------------
 \section{Research Interests}
 
-GPU architectures \& kernel optimization \textbullet{} LLM inference \& training systems \textbullet{}
-Model quantization \textbullet{} Deep learning \textbullet{} Diffusion models \textbullet{} Autonomous agents \textbullet{} Speech processing \textbullet{} Computer vision \textbullet{} Multimodal Learning
+GPU kernels \& LLM inference systems \sep Model quantization \sep Speech recognition \sep Diffusion models \sep Computer vision
+
+%--- PUBLICATIONS ------------------------------------------------------------
+\section{Publications \& Talks}
+
+\begin{itemize}
+  \item V.\ Nawander, C.\ R.\ Nerella, M.\ Shrivastava, ``ASR for Dysarthric Speech in the Speech Accessibility Project Challenge,''
+        \textit{Speech Accessibility Project Challenge 2, NeurIPS 2026} (oral presentation).
+        \href{https://neurips.cc/virtual/2026/181059}{[Link]}
+  \item V.\ Nawander, C.\ R.\ Nerella, ``DataHacks at PerAnsSumm 2025: LoRA-Driven Prompt Engineering for Perspective Aware Span Identification and Summarization,''
+        \textit{CL4Health Workshop, NAACL 2025}.
+        \href{https://aclanthology.org/2025.cl4health-1.33/}{[Link]}
+  \item Manuscripts under review at CVPR 2027 and MLSys 2027.
+\end{itemize}
+
+%--- RESEARCH PROJECTS -------------------------------------------------------
+\section{Research Projects}
+
+\textbf{Fused MoE Kernel for NVIDIA B200 -- FlashInfer AI Kernel Generation Contest @ MLSys 2026} \hfill
+\href{https://github.com/vanshnawander/flashinfer-mlsys}{\texttt{[GitHub]}}
+\begin{itemize}
+  \item Wrote a Triton kernel for DeepSeek-V3's FP8-quantized Mixture-of-Experts layer that runs 1.2x--7.4x faster than the contest reference and passes all 19 benchmark workloads (7.43x at sequence length 1, 2.3x on 14k-token inputs).
+  \item Got there by promoting FP8 weights to BF16 losslessly to use tensor cores, fusing GEMM and SwiGLU into one kernel, and replacing 96 per-expert kernel launches with 4; profiled with Nsight Compute and wrote a technical report.
+\end{itemize}
+
+\entrygap
+\textbf{Autonomous Research Agent} \hfill
+\href{https://github.com/vanshnawander/autonomus-agent}{\texttt{[GitHub]}}
+\begin{itemize}
+  \item Built an agent that performs literature review, code generation, and experimental design for AI research.
+  \item Runs experiments on Slurm clusters and generates reports; built on Devin, configurable for opencode and other CLI tools.
+\end{itemize}
 
 %--- EXPERIENCE --------------------------------------------------------------
 \section{Experience}
 
-\textbf{ CUDA Kernel Expert (Part Time) - Mercor} \hfill July 2026 - Sept 2026
+\textbf{CUDA Kernel Expert (Part-time) -- Mercor} \hfill Jul 2026 -- Sep 2026
 \begin{itemize}
-  \item Converted pytorch Kernels to optimized cuda kernels with 1.2x - 15x speedup ratios compared to pytorch.
-  \item Evaluated the ability of agentic system to assist in CUDA kernel writing and helped improve them
+  \item Converted PyTorch kernels to optimized CUDA kernels with 1.2x--15x speedups over PyTorch.
+  \item Evaluated how well agentic systems assist in writing CUDA kernels and helped improve them.
 \end{itemize}
 
-\textbf{AI/ML Consultant - Alonzo AI} \hfill April 2025 -- March 2026
+\entrygap
+\textbf{AI/ML Consultant -- Alonzo AI} \hfill Apr 2025 -- Mar 2026
 \begin{itemize}
   \item Fine-tuned and deployed production ASR and TTS systems for speech applications.
-  \item Built an end-to-end agentic speech system integrating speech recognition, language understanding, and speech synthesis into a unified pipeline.
+  \item Built an agentic speech system combining speech recognition, language understanding, and speech synthesis.
   \item Handled backend engineering and NLP-based search infrastructure.
 \end{itemize}
 
-\textbf{AI/ML Engineer - Datazoic} \hfill Oct 2024 -- Jun 2025
+\entrygap
+\textbf{AI/ML Engineer -- Datazoic} \hfill Oct 2024 -- Jun 2025
 \begin{itemize}
   \item Fine-tuned large language models on A100 GPU servers and deployed them to production.
   \item Built RAG-based question answering systems for retrieval over thousands of documents.
-  \item Engineered AI agents with LangGraph for a CRM platform, enabling automated actions and improved UX.
-\end{itemize}
-
-
-\section{Research Projects}
-
-\textbf{FlashInfer Kernel Contest @ MLSys 2026} \hfill
-\href{https://github.com/vanshnawander/flashinfer-mlsys}{\texttt{[GitHub]}}
-\begin{itemize}
-  \item Competing in the FlashInfer AI Kernel Generation Contest at MLSys 2026, writing high-performance GPU kernels (fused MoE) for NVIDIA Blackwell (B200) GPUs.
-  \item Implemented kernels in Triton and CUDA; benchmarked on B200 hardware via Modal cloud infrastructure. Produced a technical report analysing kernel performance against the FlashInfer-Bench evaluation suite.
-\end{itemize}
-
-\textbf{Autonomous Research Agent} \hfill
-\href{https://github.com/vanshnawander/autonomus-agent}{\texttt{[GitHub]}}
-\begin{itemize}
-  \item Built an autonomous research agent capable of performing literature review, code generation, and experimental design for AI research.
-  \item These agents can work with slurm clusters, manage experiments, and generate reports, significantly accelerating the research process. 
-  \item Uses devin for cli based workflows and can be configured to use opencode and other open-source cli tools for work.
-\end{itemize}
-
-\textbf{Language Model from Scratch}
-\begin{itemize}
-  \item Built a transformer-based language model from scratch in PyTorch, implementing multi-head attention, positional encoding, and the full training pipeline.
-  \item Covered tokenisation, pretraining objectives, and scaling considerations; used as a deep-dive into LLM internals and architecture design.
-\end{itemize}
-
-
-%--- PUBLICATIONS ------------------------------------------------------------
-\section{Publications}
-
-\begin{itemize}
-  \item V.\ Nawander et al., ``Span Identification and Summarization,''
-        \textit{Workshop Proceedings, NAACL 2025}.
-        \href{https://aclanthology.org/2025.cl4health-1.33.pdf}{[Link]}
-
+  \item Built AI agents with LangGraph for a CRM platform to automate user actions.
 \end{itemize}
 
 %--- SKILLS ------------------------------------------------------------------
 \section{Skills}
 
-\begin{tabular}{@{} >{\bfseries}l @{\hspace{3ex}} l}
-Systems \& GPU  & CUDA, Triton, C, C++, GPU kernel optimization \\
-ML \& DL        & PyTorch, JAX, vLLM, HuggingFace, Scikit-learn, NumPy, Pandas \\
-LLM / AI        & LangChain, LangGraph, transformers , RAG, Devin, Cursor, Antigravity, codex \\
-Languages       & Python, C++, C, JavaScript \\
-Web / Backend   & FastAPI, Flask, React.js, Node.js, Express.js \\
-Infra / DB      & Linux, Redis, Celery, AWS, MySQL, PostgreSQL, MongoDB \\
-\end{tabular}
-
-%--- COURSE WORK -------------------------------------------------------------
-\section{Course Work}
-
-\begin{tabular}{@{} >{\raggedright\arraybackslash}p{0.48\linewidth} @{} >{\raggedright\arraybackslash}p{0.48\linewidth} @{}}
-\textbullet{} Language Models and Agents [\texttt{CL3.410}] &
-\textbullet{} Advanced NLP [\texttt{CS7.501}] \\
-\textbullet{} Information Retrieval and Extraction [\texttt{CS4.406}] &
-\textbullet{} Compilers [\texttt{CS1.403}] \\
-\textbullet{} Teaching Assistant, Information Retrieval and Extraction [\texttt{CS4.406}] &
+\begin{tabular}{@{} >{\bfseries}l @{\hspace{3ex}} l @{}}
+GPU \& Systems  & CUDA, Triton, C, C++, Nsight Compute, Slurm, Linux \\
+ML \& DL        & PyTorch, JAX, vLLM, HuggingFace Transformers, LoRA fine-tuning, Scikit-learn, NumPy, Pandas \\
+LLM / AI        & LangChain, LangGraph, RAG, Devin, Cursor, Antigravity, Codex \\
+Languages / Web & Python, JavaScript, FastAPI, Flask, React.js, Node.js, Express.js \\
+Infra / DB      & Redis, Celery, AWS, MySQL, PostgreSQL, MongoDB \\
 \end{tabular}
 
 %--- ACHIEVEMENTS ------------------------------------------------------------
-\section{Achievements \& Leadership}
+\section{Achievements}
 
 \begin{itemize}
-  \item \textbf{Smart India Hackathon 2023 - National Winner:} Won the national-level competition for problem statement \#1384 by the Ministry of Commerce and Industry.
-  \item \textbf{Accurate Bacground Hackathon 2025 : First runner up} We were the first runner up globally next only to the internal team of accurate in the Accurate Background Hackathon 2025, organized by Accurate Background.
+  \item \textbf{Smart India Hackathon 2023 -- National Winner:} Problem statement \#1384, Ministry of Commerce \& Industry.
+  \item \textbf{Accurate Background Hackathon 2025 -- First Runner-up:} Second globally, behind only Accurate's internal team.
   \item \textbf{IndoML Datathon (NIQ Sponsored):} Won 1st and 5th prizes at the IndoML conference datathon challenge.
-  \item \textbf{Microsoft ImagineCup 2024:} Qualified for the first round.
 \end{itemize}
 
 \end{document}
